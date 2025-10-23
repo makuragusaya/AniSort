@@ -1,3 +1,16 @@
+
+## TODO list
+
+[] Hard link
+[] Environment variable
+[] ignore Unknown Files 
+[] Subtitle subset
+[] Database
+[] Web API
+
+---
+
+
 ## AniSort
 
 这是一个批量 **整理番剧文件** 的工具，通过正则表达式进行匹配
