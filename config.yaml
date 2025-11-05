@@ -1,0 +1,169 @@
+general:
+  ignore_unknown_files: true
+  generate_comparison_table: true
+  generate_ignore_file: true
+  trad_chinese: true
+  default_output: "./test/default/"
+  proxies: {}
+
+tmdb:
+  provider: "tmdb"
+  tmdb_api: "!env TMDB_API_KEY"
+  tmdb_selected: false
+
+ai:
+  provider: "deepseek"
+  ai_api_key: "!env AI_API_KEY"
+  call_ai: false
+
+features:
+  hardlink: true
+  dryrun: true
+
+
+pattern:
+  # ===== OVA =====
+  - type: "OVA"
+    regex: "(?i)\\b(OVA|OAD)(\\d*)\\b"
+    normalize: null
+    priority: 1
+
+  # ===== 正片集数 =====
+  - type: "SP"
+    regex: "(?i)(S00E)(\\d+(?:[v|_]\\d+){0,1})"
+    normalize: "Season 00/{ani_name} - S00E{match_2}"
+    priority: 1
+
+  - type: "SE_EP"
+    regex: "(?i)S(\\d+)E(\\d+(?:[v|_]\\d+){0,1})"
+    normalize: "Season {season}/{ani_name} - S{season}E{match_2}"
+    priority: 2
+
+  - type: "SE_EP"
+    regex: "(?i)Season[ _-]?(\\d+)[ _-]?Episode[ _-]?(\\d+(?:[v|_]\\d+){0,1})"
+    normalize: "Season {season}/{ani_name} - S{season}E{match_2}"
+    priority: 2
+
+  - type: "EP"
+    regex: "(?i)\\s(\\d{2,3}(?:[v|_]\\d+){0,1})\\s.*\\.(?:mkv|mp4|mka|ass)"
+    normalize: "Season {season}/{ani_name} - S{season}E{match_2}"
+    priority: 3
+
+  - type: "EP"
+    regex: "(?i)\\s(\\d{2,3}(?:[v|_]\\d+){0,1})[（|【|\\(|\\[].*\\.(?:mkv|mp4|mka|ass)"
+    normalize: "Season {season}/{ani_name} - S{season}E{match_2}"
+    priority: 3
+
+  - type: "EP"
+    regex: "(?i)(?:Episode|第)[ _-]?(\\d+(?:[v|_]\\d+){0,1})"
+    normalize: "Season {season}/{ani_name} - S{season}E{match_2}"
+    priority: 5
+
+  - type: "EP"
+    regex: "(?i)\\[(\\d{2,3}(?:[v|_]\\d+){0,1})\\].*\\.(?:mkv|mp4|mka|ass)"
+    normalize: "Season {season}/{ani_name} - S{season}E{match_2}"
+    priority: 7
+
+  - type: "EP"
+    regex: "(?i)_(\\d{2,3}(?:[v|_]\\d+){0,1})_.*\\.(?:mkv|mp4|mka|ass)"
+    normalize: "Season {season}/{ani_name} - S{season}E{match_2}"
+    priority: 7
+
+  - type: "EP"
+    regex: "(?i)(?:EP|E)[ _-]?(\\d+(?:[v|_]\\d+){0,1})"
+    normalize: "Season {season}/{ani_name} - S{season}E{match_2}"
+    priority: 7
+
+  # ===== 菜单 =====
+  - type: "Menu"
+    regex: "(?i)\\b(Chapter Menu)[ _-]?(?:\\]\\[){0,1}(\\d*(?:[v|_]\\d+){0,1})"
+    normalize: "Other/S{season}_角色菜单{match_2}"
+    priority: 3
+
+  - type: "Menu"
+    regex: "(?i)\\b(Menu)[ _-]?(?:\\]\\[){0,1}(\\d*(?:[v|_]\\d+){0,1})"
+    normalize: "Other/S{season}_BD播放选择菜单{match_2}"
+    priority: 4
+
+  # ===== 特典（Interview / SP / OVA / Extras） =====
+  - type: "IV"
+    regex: "(?i)\\b(Interview)[ _-]?(?:\\]\\[){0,1}(\\d*(?:[v|_]\\d+){0,1})"
+    normalize: "Interviews/S{season}_访谈{match_2}"
+    priority: 5
+
+  - type: "IV"
+    regex: "(?i)\\b(IV)[ _-]?(?:\\]\\[){0,1}(\\d*(?:[v|_]\\d+){0,1})"
+    normalize: "Interviews/S{season}_访谈{match_2}"
+    priority: 8
+
+  - type: "SP"
+    regex: "(?i)\\b(SP|OVA|EXTRAS|Special|特別編|特别篇)[ _-]?(?:\\]\\[){0,1}(\\d*(?:[v|_]\\d+){0,1})"
+    normalize: "Other/S{season}_特别篇{match_2}"
+    priority: 5
+
+  # ===== 实体介质 =====
+  - type: "CD"
+    regex: "(?i)\\b(CD|BD[^Rip]|DVD|DISC|Disk|Vol)[ _-]?(?:\\]\\[){0,1}(\\d*(?:[v|_]\\d+){0,1})"
+    normalize: "Other/S{season}_CD{match_2}"
+    priority: 5
+
+  # ===== OP / ED =====
+  - type: "OP"
+    regex: "(?i)\\b(NCOP(?:\\d*_EP\\d+){0,1})[ _-]?(?:\\]\\[){0,1}(\\d*(?:[v|_]\\d+){0,1})"
+    normalize: "Other/S{season}_无字幕片头{match_2}"
+    priority: 5
+
+  - type: "OP"
+    regex: "(?i)\\b(OP(?:\\d*_EP\\d+){0,1})[ _-]?(?:\\]\\[){0,1}(\\d*(?:[v|_]\\d+){0,1})"
+    normalize: "Other/S{season}_片头{match_2}"
+    priority: 6
+
+  - type: "ED"
+    regex: "(?i)\\b(NCED(?:\\d*_EP\\d+){0,1})[ _-]?(?:\\]\\[){0,1}(\\d*(?:[v|_]\\d+){0,1})"
+    normalize: "Other/S{season}_无字幕片尾{match_2}"
+    priority: 5
+
+  - type: "ED"
+    regex: "(?i)\\b(ED(?:\\d*_EP\\d+){0,1})[ _-]?(?:\\]\\[){0,1}(\\d*(?:[v|_]\\d+){0,1})"
+    normalize: "Other/S{season}_片尾{match_2}"
+    priority: 6
+
+  # ===== 预告类 =====
+  - type: "Preview"
+    regex: "(?i)\\b(Preview|Prev)[ _-]?(?:\\]\\[){0,1}(\\d*(?:[v|_]\\d+){0,1})"
+    normalize: "Trailers/S{season}_预告{match_2}"
+    priority: 5
+
+  # ===== 音乐视频 =====
+  - type: "MV"
+    regex: "(?i)\\b(MV)[ _-]?(?:\\]\\[){0,1}(\\d*(?:[v|_]\\d+){0,1})"
+    normalize: "Other/S{season}_MV{match_2}"
+    priority: 5
+
+  # ===== 合集 =====
+  - type: "Collection"
+    regex: "(?i)\\b(PV&CM Collection)[ _-]?(?:\\]\\[){0,1}(\\d*(?:[v|_]\\d+){0,1})"
+    normalize: "Trailers/S{season}_PV&CM合集{match_2}"
+    priority: 5
+
+  - type: "Collection"
+    regex: "(?i)\\b(CM Collection)[ _-]?(?:\\]\\[){0,1}(\\d*(?:[v|_]\\d+){0,1})"
+    normalize: "Other/S{season}_CM合集{match_2}"
+    priority: 5
+
+  - type: "Collection"
+    regex: "(?i)\\b(PV Collection)[ _-]?(?:\\]\\[){0,1}(\\d*(?:[v|_]\\d+){0,1})"
+    normalize: "Trailers/S{season}_PV合集{match_2}"
+    priority: 5
+
+  # ===== 广告 =====
+  - type: "CM"
+    regex: "(?i)\\b(CM|SPOT)[ _-]?(?:\\]\\[){0,1}(\\d*(?:[v|_]\\d+){0,1})"
+    normalize: "Trailers/S{season}_广告{match_2}"
+    priority: 6
+
+  # ===== 宣传片 =====
+  - type: "PV"
+    regex: "(?i)\\b(PV|Trailer|Teaser)[ _-]?(?:\\]\\[){0,1}(\\d*(?:[v|_]\\d+){0,1})"
+    normalize: "Trailers/S{season}_宣传片{match_2}"
+    priority: 6

@@ -1,7 +1,7 @@
 
 ## TODO list
 
-[] Hard link
+[x] Hard link
 [] Environment variable
 [] ignore Unknown Files 
 [] Subtitle subset
