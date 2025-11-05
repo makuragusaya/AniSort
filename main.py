@@ -17,7 +17,9 @@ def main():
     )
     args = parser.parse_args()
 
-    status = run_sort_task(args.input, args.output, args.dryrun, args.verbose)["status"]
+    status = run_sort_task(
+        args.input, args.output, args.dryrun, args.verbose, args.move
+    )["status"]
     print(f"Run sort task: {status}")
 
 

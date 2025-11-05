@@ -5,7 +5,6 @@ general:
   chinese_traditional: true
   default_output: "../testspace/default/"
   proxies: {}
-  move_original: false
   original_archive_dir: "../testspace/orig"
 
 tmdb:
@@ -25,6 +24,11 @@ ai:
   prompt2: |
     请你根据我发送的相关信息解析这个番剧文件名，最后只返回番剧的季数对应的阿拉伯数字，
     默认为 1，注意不要与集数搞混。
+
+features:
+  move_original: true
+  subset_ass: true
+
 
 ignore_exts: 
   - ".flac"

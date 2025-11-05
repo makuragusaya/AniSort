@@ -24,7 +24,6 @@ class GeneralConfig(BaseModel):
     chinese_traditional: bool
     default_output: str
     proxies: dict
-    move_original: bool
     original_archive_dir: str
 
 
@@ -32,6 +31,7 @@ class AppConfig(BaseModel):
     general: GeneralConfig
     tmdb: TMDBConfig
     ai: AIConfig
+    features: dict
     ignore_exts: list
     patterns: list[dict]
 
