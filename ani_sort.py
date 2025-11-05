@@ -194,6 +194,8 @@ class AniSort(object):
                 suffix_sub: str = SUFFIX_MAP.get(path.stem.split('.')[-1].lower(), '')
                 if suffix_sub == ".zh-TW" and TRADITIONAL_CH:
                     suffix_sub = suffix_sub + ".forced"
+                elif suffix_sub == ".zh-CN" and not TRADITIONAL_CH:
+                    suffix_sub = suffix_sub + ".forced"
                 suffix: str = suffix_sub + suffix
 
             return f"{self.parent_dir}/" + parse_info["normalize"].format(
