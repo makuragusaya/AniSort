@@ -3,7 +3,6 @@ from utils import sanitize_filename
 from config import (TMDB_API_KEY, PATTERN, TMDB_SELECTED,
                     GENERATE_COMPARISON_TABLE, GENERATE_IGNORE_FILE, CALL_AI,
                     AI_API_KEY, PROXIES, DELETE_UNKNOWN_FILES, TRADITIONAL_CH)
-
 from datetime import datetime
 from pathlib import Path
 from typing import Union
@@ -11,6 +10,7 @@ import difflib
 import requests
 import shutil
 import re
+import sys
 
 SUFFIX_MAP = {
     "chs": ".zh-CN",
@@ -39,10 +39,10 @@ class AniSort(object):
 
         self.season: int = None
         self.ani_info: dict = self.get_ani_info(self.path.stem)
-        self.ani_name: str = f'{self.ani_info["name"]} ({self.ani_info["date"]})'.replace( ':', '：').replace('?', '？')
-        self.parent_dir: str = ( f"{str(parent_dir).rstrip('/') if parent_dir else self.path.parent}/{sanitize_filename(self.ani_name)}")
+        self.ani_name: str = f'{self.ani_info["name"]} ({self.ani_info["date"]})'.replace(':', '：').replace('?', '？')
+        self.parent_dir: str = (f"{str(parent_dir).rstrip('/') if parent_dir else self.path.parent}/{sanitize_filename(self.ani_name)}")
 
-        self.patterns: dict = [{ **p, "regex": re.compile(p["regex"]) } for p in PATTERN]
+        self.patterns: dict = [{**p, "regex": re.compile(p["regex"])} for p in PATTERN]
 
         self.table: dict = {
             str(file): self.normalize(file)
@@ -261,5 +261,11 @@ class AniSort(object):
 
 
 if __name__ == "__main__":
-    while True:
-        AniSort(input("请输入文件夹路径: ")).move_files()
+    output_dir = None
+    if len(sys.argv) > 1:
+        input_folder = sys.argv[1]
+        print("input folder: ", input_folder)
+    if len(sys.argv) > 2:
+        output_dir = sys.argv[2]
+        print("output dir: ", output_dir)
+    AniSort(input_folder, output_dir).move_files()
