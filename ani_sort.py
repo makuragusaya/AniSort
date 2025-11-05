@@ -7,6 +7,7 @@ import difflib
 import requests
 import re
 import sys
+import argparse
 
 SUFFIX_MAP = {
     "chs": ".zh-CN",
@@ -25,6 +26,19 @@ class AniSort(object):
     def __init__(
         self, path: Union[str, Path], parent_dir: Union[str, Path] = None
     ) -> None:
+
+        try:
+            self.config = load_config()
+        except Exception as e:
+            print(f"[FATAL] Failed to load configuration: {e}")
+            sys.exit(1)
+
+        self.ignore_exts = self.config.ignore_exts
+        self.general = self.config.general
+        self.tmdb = self.config.tmdb
+        self.ai = self.config.ai
+        self.patterns = self.config.patterns
+
         self.path: Path = Path(path.strip("\"'")) if isinstance(path, str) else path
 
         self.season: int = None
@@ -38,10 +52,10 @@ class AniSort(object):
         self.group_name: str = self.extra_info["group"]
 
         self.parent_dir: str = (
-            f"{str(parent_dir).rstrip('/') if parent_dir else str(general.default_output).rstrip('/')}/{sanitize_filename(self.ani_name)}"
+            f"{str(parent_dir).rstrip('/') if parent_dir else str(self.general.default_output).rstrip('/')}/{sanitize_filename(self.ani_name)}"
         )
 
-        self.patterns: dict = [{**p, "regex": re.compile(p["regex"])} for p in patterns]
+        self.patterns: dict = [{**p, "regex": re.compile(p["regex"])} for p in self.patterns]
 
         self.table: dict = {
             str(file): self.normalize(file) for file in self.get_all_files(self.path)
@@ -86,7 +100,7 @@ class AniSort(object):
             res = requests.post(
                 url="https://api.deepseek.com/chat/completions",
                 headers={
-                    "Authorization": f"Bearer {ai.api}",
+                    "Authorization": f"Bearer {self.ai.api}",
                     "Content-Type": "application/json",
                 },
                 json={
@@ -104,8 +118,8 @@ class AniSort(object):
         try:
             res = requests.get(
                 url=url,
-                params={**params, "language": "zh-CN", "api_key": tmdb.api},
-                proxies=general.proxies,
+                params={**params, "language": "zh-CN", "api_key": self.tmdb.api},
+                proxies=self.general.proxies,
                 headers={"accept": "application/json"},
                 timeout=60,
             )
@@ -148,8 +162,8 @@ class AniSort(object):
         name: 番剧文件名
         """
         query: str = (
-            print("调用 AI - 1") or self.call_ai(f"{name}\n\n{ai.prompt1}")
-            if ai.call
+            print("调用 AI - 1") or self.call_ai(f"{name}\n\n{self.ai.prompt1}")
+            if self.ai.call
             else (
                 match := re.match(
                     r"(?i)(.+?)(?:[_\s-]*(?:s|season)\s*(\d+))?$",
@@ -162,7 +176,7 @@ class AniSort(object):
         )
         try:
             info: dict = res.json()["results"][0]
-            if tmdb.manual and res.json()["results"]:
+            if self.tmdb.manual and res.json()["results"]:
                 print(
                     "\n"
                     + "\n".join(
@@ -177,7 +191,7 @@ class AniSort(object):
         except Exception as e:
             raise Exception(f"无法搜索到该动漫，请更改文件夹名称后再试一次 {e}")
 
-        if ai.call:
+        if self.ai.call:
             seasons_info: list = self.call_tmdb(
                 url=f'https://api.themoviedb.org/3/tv/{info["id"]}'
             ).json()["seasons"]
@@ -192,7 +206,7 @@ class AniSort(object):
                 ]
             )
             self.season: int = print("调用 AI - 2") or int(
-                self.call_ai(f"{name}\n\n{seasons_conten}\n\n{ai.prompt2}")
+                self.call_ai(f"{name}\n\n{seasons_conten}\n\n{self.ai.prompt2}")
             )
         else:
             self.season: int = int(match[2]) if match[2] else 1
@@ -242,12 +256,12 @@ class AniSort(object):
             if (suffix := path.suffix.lower()) == ".ass":
                 suffix_sub: str = SUFFIX_MAP.get(path.stem.split(".")[-1].lower(), "")
                 # TODO: Quick and dirty fix — refine later.
-                if suffix_sub == ".zh-TW" and general.trad_chinese:
+                if suffix_sub == ".zh-TW" and self.general.trad_chinese:
                     suffix_sub = suffix_sub + ".forced"
-                elif suffix_sub == ".zh-CN" and not general.trad_chinese:
+                elif suffix_sub == ".zh-CN" and not self.general.trad_chinese:
                     suffix_sub = suffix_sub + ".forced"
                 suffix: str = suffix_sub + suffix
-            if suffix in config.ignore_exts:
+            if suffix in self.ignore_exts:
                 return "ignore"
 
             return (
@@ -267,7 +281,7 @@ class AniSort(object):
             )
 
         suffix = path.suffix.lower()
-        if suffix in config.ignore_exts:
+        if suffix in self.ignore_exts:
             return "ignore"
 
         return f"{self.parent_dir}/Unknown_Files/{path.name}"
@@ -305,7 +319,7 @@ class AniSort(object):
                 self.table[src] = src_path.name
                 print(f"Skipped: Target file {dest_path} alreday exists.")
 
-        if general.generate_ignore_file:
+        if self.general.generate_ignore_file:
             for root in Path(self.parent_dir).rglob("*/"):
                 if root.name in ["Interviews", "Other", "Unknown_Files"]:
                     if dryrun:
@@ -313,7 +327,7 @@ class AniSort(object):
                     else:
                         (root / ".ignore").write_text("", encoding="utf-8")
 
-        if general.generate_comparison_table:
+        if self.general.generate_comparison_table:
             if dryrun:
                 print(
                     f"[DRYRUN] Would append Comparison_Table.txt in {self.parent_dir}"
@@ -334,23 +348,19 @@ class AniSort(object):
 
 
 if __name__ == "__main__":
-    try:
-        config = load_config()
-    except Exception as e:
-        print(f"[FATAL] Failed to load configuration: {e}")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(
+        description="Anime BD Organizer (AniSort) CLI"
+    )
+    parser.add_argument("input", help="Input folder path")
+    parser.add_argument("output", nargs="?", help="Optional output folder path")
+    parser.add_argument("--dryrun", action="store_true", help="Preview only, no changes")
+    parser.add_argument("--verbose", action="store_true", help="Show detailed logs")
+    args = parser.parse_args()
 
-    general = config.general
-    tmdb = config.tmdb
-    ai = config.ai
-    patterns = config.patterns
+    input_folder = args.input
+    output_dir = args.output  # None if not provided
 
-    output_dir = None
-    if len(sys.argv) > 1:
-        input_folder = sys.argv[1]
-        print("input folder: ", input_folder)
-    if len(sys.argv) > 2:
-        output_dir = sys.argv[2]
-        print("output dir: ", output_dir)
-
-    AniSort(input_folder, output_dir).main(dryrun=True)
+    AniSort(input_folder, output_dir).main(
+        dryrun=args.dryrun,
+        verbose=args.verbose
+    )
