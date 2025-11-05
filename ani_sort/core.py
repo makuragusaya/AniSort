@@ -1,6 +1,7 @@
 import os
 from ani_sort.utils import sanitize_filename, get_all_files
 from ani_sort.metadata import extract_groups, get_ani_info
+from ani_sort.subset import subset_ass_fonts
 from pathlib import Path
 from typing import Union
 import re
@@ -149,6 +150,9 @@ class AniSort(object):
 
         return f"{self.parent_dir}/Unknown_Files/{path.name}"
 
+    def subset_ass(self, dryrun=False) -> None:
+        subset_ass_fonts(self.parent_dir, logger=self.logger)
+
     def move_original_folder(self, dryrun=False) -> None:
         target_root = Path(self.config.general.original_archive_dir)
         target_root.mkdir(exist_ok=True, parents=True)
@@ -261,6 +265,7 @@ class AniSort(object):
                                 "/".join(Path(v).parts[-2:]), Path(k).name
                             )
                             for k, v in self.table.items()
+                            if v != "ignore"
                         )
                     )
 

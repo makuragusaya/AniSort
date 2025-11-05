@@ -12,6 +12,8 @@ def run_sort_task(
     sorter.process(dryrun=dryrun)
     if move and config.features.get("move_original", False):
         sorter.move_original_folder(dryrun=dryrun)
+    if config.features.get("subset_ass", False):
+        sorter.subset_ass(dryrun=dryrun)
     return {
         "input": str(input_folder),
         "output": str(output_folder or config.general.default_output),
