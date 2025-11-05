@@ -29,6 +29,7 @@ class AppConfig(BaseModel):
     tmdb: TMDBConfig
     ai: AIConfig
     features: dict
+    ignore_exts: list
     patterns: list[dict]
 
 

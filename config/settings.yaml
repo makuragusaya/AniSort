@@ -19,3 +19,15 @@ features:
   hardlink: true
   dryrun: true
 
+ignore_exts: 
+  - ".flac"
+  - ".mp3"
+  - ".cue"
+  - ".log"
+  - ".jpg"
+  - ".png"
+  - ".webp"
+  - ".7z"
+  - ".zip"
+  - ".rar"
+  - ".DS_Store"
