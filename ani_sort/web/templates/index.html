@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <title>AniSort WebUI</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { padding: 0.6rem; border-bottom: 1px solid #ddd; }
+    tr:hover { background: #f8f8f8; }
+    a { text-decoration: none; color: #0066cc; }
+  </style>
+</head>
+<body>
+  <h1>AniSort 任务列表</h1>
+  <table>
+    <tr>
+      <th>ID</th><th>番剧</th><th>分组</th><th>状态</th><th>开始时间</th><th>耗时</th>
+    </tr>
+    {% for t in tasks %}
+    <tr>
+      <td><a href="/tasks/{{ t.task_id }}">{{ t.task_id }}</a></td>
+      <td>{{ t.anime }}</td>
+      <td>{{ t.group }}</td>
+      <td>{{ t.status }}</td>
+      <td>{{ t.timestamp }}</td>
+      <td>{{ "%.3f" | format(t.duration) }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <title>任务详情 - {{ task.task_id }}</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; }
+    pre { background: #f3f3f3; padding: 1rem; border-radius: 6px; }
+    a { color: #0066cc; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <a href="/">← 返回任务列表</a>
+  <h2>任务详情</h2>
+  <ul>
+    <li><strong>任务 ID：</strong> {{ task.task_id }}</li>
+    <li><strong>番剧：</strong> {{ task.anime }}</li>
+    <li><strong>字幕组：</strong> {{ task.group }}</li>
+    <li><strong>季数：</strong> {{ task.season }}</li>
+    <li><strong>状态：</strong> {{ task.status }}</li>
+    <li><strong>耗时：</strong> {{ "%.3f" | format(task.duration) }} 秒</li>
+    <li><strong>输入：</strong> {{ task.input }}</li>
+    <li><strong>输出：</strong> {{ task.output }}</li>
+  </ul>
+</body>
+</html>
