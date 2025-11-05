@@ -1,14 +1,14 @@
 
 ## TODO list
 
-[x] Hard link
-[x] New config
-[x] ignore Unknown Files 
-[x] log system
-[] Subtitle subset
-[] Web API
-[] Database
-[] Switch Jellyfin/Plex
+- [x] Hard link
+- [x] New config
+- [x] ignore Unknown Files 
+- [x] log system
+- [x] Subtitle subset
+- [ ] Web API
+- [ ] Database
+- [ ] Switch Jellyfin/Plex
 
 ---
 
@@ -21,20 +21,6 @@
 
 ## 使用方式
 
-* 在命令行中使用
-```
-python ani_sort.py
-请输入文件夹路径: D:\anime\xxx
-
-python ani_sort.py
-请输入文件夹路径: ./anime/xxx
-```
-
-* 可在 **ani_sort.py** 的同级目录下进行调用
-```python
-from ani_sort import AniSort
-AniSort("./xxx").move_files()
-```
 
 ## 整理流程
 
@@ -133,7 +119,3 @@ PATTERN = [
     ...
 ]
 ```
-
-## 反馈与建议
-
-如要提供分类规则建议或功能需求，可以来找 qq1789685745
