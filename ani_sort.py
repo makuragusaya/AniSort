@@ -12,10 +12,6 @@ import requests
 import shutil
 import re
 
-# PREFERENCE = {
-#     ".zh-CN": ".forced",
-# }
-
 SUFFIX_MAP = {
     "chs": ".zh-CN",
     "sc": ".zh-CN",
@@ -195,8 +191,10 @@ class AniSort(object):
         if (parse_info := self.parse(path.name)) and parse_info["normalize"]:
             # 处理字幕文件
             if (suffix := path.suffix) == ".ass":
-                suffix: str = SUFFIX_MAP.get(
-                    path.stem.split('.')[-1].lower(), '') + suffix
+                suffix_sub: str = SUFFIX_MAP.get(path.stem.split('.')[-1].lower(), '')
+                if suffix_sub == ".zh-TW" and TRADITIONAL_CH:
+                    suffix_sub = suffix_sub + ".forced"
+                suffix: str = suffix_sub + suffix
 
             return f"{self.parent_dir}/" + parse_info["normalize"].format(
                 ani_name=self.ani_name,
