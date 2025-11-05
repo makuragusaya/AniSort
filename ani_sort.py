@@ -19,18 +19,6 @@ SUFFIX_MAP = {
     "tcjp": ".zh-TW",
 }
 
-AI_PROMPT1: str = (
-    "请你解析这个番剧文件名，最后只返回提取的番剧名称，不使用别名，不包含季数、集数和标题，也不需要翻译，注意与字幕组区分，"
-    "例如: \n"
-    '"[LKSUB][mono][11][1080P]" 提取为 "mono"\n'
-    '"[DMG&VCB-Studio] Kono Subarashii Sekai ni Bakuen wo! [1080p]" 提取为 "Kono Subarashii Sekai ni Bakuen wo!"\n'
-    '"SAKAMOTO DAYS 1080p" 提取为 "SAKAMOTO DAYS"'
-)
-
-AI_PROMPT2: str = (
-    "请你根据我发送的相关信息解析这个番剧文件名，最后只返回番剧的季数对应的阿拉伯数字，默认为 1，注意不要与集数搞混"
-)
-
 
 class AniSort(object):
 
@@ -46,6 +34,8 @@ class AniSort(object):
                 ":", "："
             ).replace("?", "？")
         )
+        self.extra_info: dict = self.get_extra_info(self.path.stem)
+        self.group_name: str = self.extra_info["group"]
 
         self.parent_dir: str = (
             f"{str(parent_dir).rstrip('/') if parent_dir else str(general.default_output).rstrip('/')}/{sanitize_filename(self.ani_name)}"
@@ -57,12 +47,14 @@ class AniSort(object):
             str(file): self.normalize(file) for file in self.get_all_files(self.path)
         }
 
-        print(self.path)
-        print(self.path.stem)
-        print(self.season)
-        print(self.ani_info)
-        print(self.ani_name)
-        print(self.parent_dir)
+        print("path: ", self.path)
+        print("path.stem: ", self.path.stem)
+        print("season: ", self.season)
+        print("ani_info: ", self.ani_info)
+        print("ani_name: ", self.ani_name)
+        print("extra_info: ", self.extra_info)
+        print("group_name: ", self.group_name)
+        print("parent_dir: ", self.parent_dir)
 
     def get_all_files(self, path: Path) -> list:
         """获取文件夹内所有文件，先按层级分类，再按相似度排序
@@ -122,16 +114,45 @@ class AniSort(object):
         except Exception as e:
             raise Exception(f"连接 TMDB 时发生错误：{e}")
 
+    def get_extra_info(self, stem: str) -> dict:
+        candidates = re.findall(r"(?:\[|\()(.*?)(?:\]|\))", stem)
+
+        # 定义要排除的模式：分辨率、年份、常见码率/色深标签
+        ignore_patterns = [
+            r"\d{3,4}p",  # 1080p / 2160p
+            r"\d{4}",  # 年份 2023
+            r"\b10bit\b",  # 10bit
+            r"Ma10p",  # 常见 VCB/NC-Raws 编码标签
+            r"HEVC|AVC|x265|x264",
+        ]
+
+        group = None
+        others = []
+        print("candidates:", candidates)
+
+        for i, item in enumerate(candidates):
+            if i == 0:
+                group = item
+                continue
+
+            if any(re.search(pat, item, re.I) for pat in ignore_patterns):
+                others.append(item)
+                continue
+
+            others.append(item)
+
+        return {"group": group, "others": others}
+
     def get_ani_info(self, name: str) -> dict:
         """获取番剧的信息
         name: 番剧文件名
         """
         query: str = (
-            print("调用 AI - 1") or self.call_ai(f"{name}\n\n{AI_PROMPT1}")
+            print("调用 AI - 1") or self.call_ai(f"{name}\n\n{ai.prompt1}")
             if ai.call
             else (
                 match := re.match(
-                    r"(?i)(.+?)(?:_s(\d+)){0,1}$",
+                    r"(?i)(.+?)(?:[_\s-]*(?:s|season)\s*(\d+))?$",
                     re.sub(r"\s*(\[|\().*?(\]|\))\s*", "", name),
                 )
             )[1]
@@ -139,11 +160,9 @@ class AniSort(object):
         res = print("调用 TMDB") or self.call_tmdb(
             url="https://api.themoviedb.org/3/search/tv", params={"query": query}
         )
-
         try:
             info: dict = res.json()["results"][0]
-            if tmdb.selected and res.json()["results"]:
-                # 处理是否手动选择 TMDB 的搜索结果
+            if tmdb.manual and res.json()["results"]:
                 print(
                     "\n"
                     + "\n".join(
@@ -173,7 +192,7 @@ class AniSort(object):
                 ]
             )
             self.season: int = print("调用 AI - 2") or int(
-                self.call_ai(f"{name}\n\n{seasons_conten}\n\n{AI_PROMPT2}")
+                self.call_ai(f"{name}\n\n{seasons_conten}\n\n{ai.prompt2}")
             )
         else:
             self.season: int = int(match[2]) if match[2] else 1
@@ -242,6 +261,7 @@ class AniSort(object):
                     ),
                     season=parse_info["season"],
                     episode=parse_info["episode"],
+                    group=self.group_name,
                 )
                 + suffix
             )
@@ -260,6 +280,7 @@ class AniSort(object):
             print(f"WARN: Cannot create hard link for {src_path.name} Error: {e}")
 
     def main(self, dryrun=False, verbose=False) -> None:
+        # return
         dest_dirs: dict = {Path(dest).parent for dest in self.table.values()}
         for d in dest_dirs:
             if dryrun:

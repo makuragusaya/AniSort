@@ -6,13 +6,15 @@ from pydantic import BaseModel, Field, validator
 
 class TMDBConfig(BaseModel):
     api: str | None = None
-    selected: bool = False
+    manual: bool = False
 
 
 class AIConfig(BaseModel):
     provider: str
     api: str | None = None
     call: bool = False
+    prompt1: str
+    prompt2: str
 
 
 class GeneralConfig(BaseModel):
@@ -43,8 +45,12 @@ def load_config():
 
     with open("config/settings.yaml", "r") as f:
         settings = yaml.safe_load(f)
-    with open("config/pattern_rules.yaml", "r") as f:
-        patterns = yaml.safe_load(f)
+
+    with open("config/pattern_rules.yaml", "r", encoding="utf-8") as f:
+        pattern_yaml = yaml.load(f, Loader=yaml.FullLoader)
+
+    # 只取 "patterns" 键，避免传整个 dict
+    patterns = pattern_yaml.get("patterns", [])
 
     # 环境变量展开
     for section in ["ai", "tmdb"]:
