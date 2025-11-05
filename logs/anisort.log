@@ -328,3 +328,350 @@
 [2025-11-05 19:54:19] [DEBUG] Ignore [.WEBP] : test/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/Scans/01.webp
  
 [2025-11-05 19:54:19] [DEBUG] [DRYRUN] Would append Comparison_Table.txt in ./test/default/盾之勇者成名录 (2019)
+[2025-11-05 20:26:06] [INFO] 调用 TMDB
+[2025-11-05 20:26:06] [DEBUG] TMDB request to https://api.themoviedb.org/3/search/tv with {'query': 'Tate no Yuusha no Nariagari'}
+[2025-11-05 20:26:08] [DEBUG] path: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]
+[2025-11-05 20:26:08] [DEBUG] path.stem: [VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]
+[2025-11-05 20:26:08] [DEBUG] season: 3
+[2025-11-05 20:26:08] [DEBUG] ani_info: {'name': '盾之勇者成名录', 'date': '2019', 'season': 3}
+[2025-11-05 20:26:08] [DEBUG] ani_name: 盾之勇者成名录 (2019)
+[2025-11-05 20:26:08] [DEBUG] extra_info: {'group': 'VCB-Studio', 'others': []}
+[2025-11-05 20:26:08] [DEBUG] group_name: VCB-Studio
+[2025-11-05 20:26:08] [DEBUG] parent_dir: None/盾之勇者成名录 (2019)
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] Would create directory: None/盾之勇者成名录 (2019)/Unknown_Files
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] Would create directory: None/盾之勇者成名录 (2019)/Trailers
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] Would create directory: None/盾之勇者成名录 (2019)/Other
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] Would create directory: None/盾之勇者成名录 (2019)/Season 03
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] Would create directory: .
+[2025-11-05 20:26:08] [DEBUG] Ignore [.7Z] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/Tate no Yuusha no Nariagari S3 Sakurato Subs.7z
+ 
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [02][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E02 - [VCB-Studio].mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [01][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E01 - [VCB-Studio].mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [12][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E12 - [VCB-Studio].mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [09][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E09 - [VCB-Studio].mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [07][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E07 - [VCB-Studio].mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [04][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E04 - [VCB-Studio].mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [11][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E11 - [VCB-Studio].mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [10][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E10 - [VCB-Studio].mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [05][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E05 - [VCB-Studio].mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [06][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E06 - [VCB-Studio].mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [08][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E08 - [VCB-Studio].mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [03][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E03 - [VCB-Studio].mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [07][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E07 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [04][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E04 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [02][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E02 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [01][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E01 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [10][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E10 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [09][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E09 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [09][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E09 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [04][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E04 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [07][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E07 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [10][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E10 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [01][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E01 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [02][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E02 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [08][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E08 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [03][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E03 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [12][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E12 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [11][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E11 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [06][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E06 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [05][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E05 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [11][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E11 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [12][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E12 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [03][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E03 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [05][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E05 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [06][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E06 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [08][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E08 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:26:08] [DEBUG] Ignore [.PNG] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu01_4].png
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.PNG] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu03_4].png
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.PNG] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu03_3].png
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.PNG] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu01_2].png
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.PNG] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu01_3].png
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.PNG] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu03_2].png
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.PNG] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu02_4].png
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.PNG] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu02_3].png
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.PNG] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu02_2].png
+ 
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [CM01][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Trailers/S03_广告01.mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [CM02][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Trailers/S03_广告02.mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [NCED][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Other/S03_无字幕片尾01.mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [PV02][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Trailers/S03_宣传片02.mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [PV01][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Trailers/S03_宣传片01.mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [NCOP][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Other/S03_无字幕片头01.mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [CM03][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Trailers/S03_广告03.mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Teaser][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Trailers/S03_宣传片01.mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu01_1][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Other/S03_BD播放选择菜单01_1.mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu02_1][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Other/S03_BD播放选择菜单02_1.mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu03_1][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Other/S03_BD播放选择菜单03_1.mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Anime NYC Intro][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Unknown_Files/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Anime NYC Intro][Ma10p_1080p][x265_flac].mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Key Visual Movie][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Unknown_Files/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Key Visual Movie][Ma10p_1080p][x265_flac].mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Web Preview 01-04][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Trailers/S03_预告01.mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Web Preview 09-12][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Trailers/S03_预告09.mkv
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Web Preview 05-08][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Trailers/S03_预告05.mkv
+[2025-11-05 20:26:08] [DEBUG] Ignore [.FLAC] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/01. SIN.flac
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.LOG] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/COZA-2036.log
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.FLAC] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/03. SIN (Instrumental).flac
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.FLAC] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/02. SIN (English ver.).flac
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.FLAC] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/04. Bring Back (5.20 LIVE ver.).flac
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.FLAC] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/06. Fight It Out (5.20 LIVE ver.).flac
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.FLAC] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/05. Last Climber (5.20 LIVE ver.).flac
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.FLAC] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231004] ｢好きになってはいけない理由｣／藤川千愛 [24bit_48kHz] (flac)/01. 好きになってはいけない理由.flac
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.WEBP] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/Scans/03.webp
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.WEBP] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/Scans/02.webp
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.WEBP] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/Scans/05.webp
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.WEBP] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/Scans/04.webp
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.WEBP] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/Scans/08.webp
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.WEBP] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/Scans/07.webp
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.WEBP] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/Scans/06.webp
+ 
+[2025-11-05 20:26:08] [DEBUG] Ignore [.WEBP] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/Scans/01.webp
+ 
+[2025-11-05 20:26:08] [DEBUG] [DRYRUN] Would append Comparison_Table.txt in None/盾之勇者成名录 (2019)
+[2025-11-05 20:38:40] [INFO] 调用 TMDB
+[2025-11-05 20:38:40] [DEBUG] TMDB request to https://api.themoviedb.org/3/search/tv with {'query': 'Tate no Yuusha no Nariagari'}
+[2025-11-05 20:38:41] [INFO] [TASK 7817cbb2] Started sorting: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]
+[2025-11-05 20:38:41] [DEBUG] path: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]
+[2025-11-05 20:38:41] [DEBUG] path.stem: [VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]
+[2025-11-05 20:38:41] [DEBUG] season: 3
+[2025-11-05 20:38:41] [DEBUG] ani_info: {'name': '盾之勇者成名录', 'date': '2019', 'season': 3}
+[2025-11-05 20:38:41] [DEBUG] ani_name: 盾之勇者成名录 (2019)
+[2025-11-05 20:38:41] [DEBUG] extra_info: {'group': 'VCB-Studio', 'others': []}
+[2025-11-05 20:38:41] [DEBUG] group_name: VCB-Studio
+[2025-11-05 20:38:41] [DEBUG] parent_dir: None/盾之勇者成名录 (2019)
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] Would create directory: None/盾之勇者成名录 (2019)/Trailers
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] Would create directory: None/盾之勇者成名录 (2019)/Season 03
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] Would create directory: None/盾之勇者成名录 (2019)/Other
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] Would create directory: .
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] Would create directory: None/盾之勇者成名录 (2019)/Unknown_Files
+[2025-11-05 20:38:41] [DEBUG] Ignore [.7Z] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/Tate no Yuusha no Nariagari S3 Sakurato Subs.7z
+ 
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [02][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E02 - [VCB-Studio].mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [01][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E01 - [VCB-Studio].mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [12][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E12 - [VCB-Studio].mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [09][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E09 - [VCB-Studio].mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [07][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E07 - [VCB-Studio].mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [04][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E04 - [VCB-Studio].mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [11][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E11 - [VCB-Studio].mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [10][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E10 - [VCB-Studio].mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [05][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E05 - [VCB-Studio].mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [06][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E06 - [VCB-Studio].mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [08][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E08 - [VCB-Studio].mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [03][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E03 - [VCB-Studio].mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [07][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E07 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [04][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E04 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [02][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E02 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [01][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E01 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [10][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E10 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [09][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E09 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [09][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E09 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [04][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E04 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [07][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E07 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [10][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E10 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [01][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E01 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [02][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E02 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [08][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E08 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [03][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E03 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [12][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E12 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [11][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E11 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [06][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E06 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [05][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E05 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [11][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E11 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [12][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E12 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [03][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E03 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [05][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E05 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [06][Ma10p_1080p][x265_flac].sc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E06 - [VCB-Studio].zh-CN.ass
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.ASS] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [08][Ma10p_1080p][x265_flac].tc.ass
+ => None/盾之勇者成名录 (2019)/Season 03/盾之勇者成名录 (2019) S03E08 - [VCB-Studio].zh-TW.forced.ass
+[2025-11-05 20:38:41] [DEBUG] Ignore [.PNG] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu01_4].png
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.PNG] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu03_4].png
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.PNG] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu03_3].png
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.PNG] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu01_2].png
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.PNG] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu01_3].png
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.PNG] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu03_2].png
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.PNG] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu02_4].png
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.PNG] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu02_3].png
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.PNG] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu02_2].png
+ 
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [CM01][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Trailers/S03_广告01.mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [CM02][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Trailers/S03_广告02.mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [NCED][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Other/S03_无字幕片尾01.mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [PV02][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Trailers/S03_宣传片02.mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [PV01][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Trailers/S03_宣传片01.mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [NCOP][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Other/S03_无字幕片头01.mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [CM03][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Trailers/S03_广告03.mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Teaser][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Trailers/S03_宣传片01.mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu01_1][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Other/S03_BD播放选择菜单01_1.mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu02_1][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Other/S03_BD播放选择菜单02_1.mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Menu03_1][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Other/S03_BD播放选择菜单03_1.mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Anime NYC Intro][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Unknown_Files/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Anime NYC Intro][Ma10p_1080p][x265_flac].mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Key Visual Movie][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Unknown_Files/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Key Visual Movie][Ma10p_1080p][x265_flac].mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Web Preview 01-04][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Trailers/S03_预告01.mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Web Preview 09-12][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Trailers/S03_预告09.mkv
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] [.MKV] Would link: ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/SPs/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Web Preview 05-08][Ma10p_1080p][x265_flac].mkv
+ => None/盾之勇者成名录 (2019)/Trailers/S03_预告05.mkv
+[2025-11-05 20:38:41] [DEBUG] Ignore [.FLAC] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/01. SIN.flac
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.LOG] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/COZA-2036.log
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.FLAC] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/03. SIN (Instrumental).flac
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.FLAC] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/02. SIN (English ver.).flac
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.FLAC] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/04. Bring Back (5.20 LIVE ver.).flac
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.FLAC] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/06. Fight It Out (5.20 LIVE ver.).flac
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.FLAC] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/05. Last Climber (5.20 LIVE ver.).flac
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.FLAC] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231004] ｢好きになってはいけない理由｣／藤川千愛 [24bit_48kHz] (flac)/01. 好きになってはいけない理由.flac
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.WEBP] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/Scans/03.webp
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.WEBP] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/Scans/02.webp
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.WEBP] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/Scans/05.webp
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.WEBP] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/Scans/04.webp
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.WEBP] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/Scans/08.webp
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.WEBP] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/Scans/07.webp
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.WEBP] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/Scans/06.webp
+ 
+[2025-11-05 20:38:41] [DEBUG] Ignore [.WEBP] : ../testspace/input/[VCB-Studio] Tate no Yuusha no Nariagari Season 3 [Ma10p_1080p]/CDs/[231011] ｢SIN｣／MADKID (flac+webp)/Scans/01.webp
+ 
+[2025-11-05 20:38:41] [DEBUG] [DRYRUN] Would append Comparison_Table.txt in None/盾之勇者成名录 (2019)
+[2025-11-05 20:38:41] [INFO] [TASK 7817cbb2] Finished in 0.00s
+[2025-11-05 20:38:41] [DEBUG] [TASK 7817cbb2] Logged task result to tasks/history.json

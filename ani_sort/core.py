@@ -5,6 +5,10 @@ from pathlib import Path
 from typing import Union
 import re
 import logging
+from datetime import datetime
+import json
+import uuid
+
 
 SUFFIX_MAP = {
     "chs": ".zh-CN",
@@ -54,14 +58,18 @@ class AniSort(object):
             str(file): self.normalize(file) for file in get_all_files(self.path)
         }
 
-        logger.debug("path: %s", self.path)
-        logger.debug("path.stem: %s", self.path.stem)
-        logger.debug("season: %s", self.season)
-        logger.debug("ani_info: %s", self.ani_info)
-        logger.debug("ani_name: %s", self.ani_name)
-        logger.debug("extra_info: %s", self.extra_info)
-        logger.debug("group_name: %s", self.group_name)
-        logger.debug("parent_dir: %s", self.parent_dir)
+        self.task_id = uuid.uuid4().hex[:8]
+        self.start_time = datetime.now()
+        self.logger.info(f"[TASK {self.task_id}] Started sorting: {self.path}")
+
+        self.logger.debug("path: %s", self.path)
+        self.logger.debug("path.stem: %s", self.path.stem)
+        self.logger.debug("season: %s", self.season)
+        self.logger.debug("ani_info: %s", self.ani_info)
+        self.logger.debug("ani_name: %s", self.ani_name)
+        self.logger.debug("extra_info: %s", self.extra_info)
+        self.logger.debug("group_name: %s", self.group_name)
+        self.logger.debug("parent_dir: %s", self.parent_dir)
 
     def parse(self, name: str) -> dict:
         """解析番剧文件名
@@ -105,7 +113,10 @@ class AniSort(object):
                 # TODO: Quick and dirty fix — refine later.
                 if suffix_sub == ".zh-TW" and self.config.general.chinese_traditional:
                     suffix_sub = suffix_sub + ".forced"
-                elif suffix_sub == ".zh-CN" and not self.config.general.chinese_traditional:
+                elif (
+                    suffix_sub == ".zh-CN"
+                    and not self.config.general.chinese_traditional
+                ):
                     suffix_sub = suffix_sub + ".forced"
                 suffix: str = suffix_sub + suffix
             if suffix in self.config.ignore_exts:
@@ -133,6 +144,54 @@ class AniSort(object):
 
         return f"{self.parent_dir}/Unknown_Files/{path.name}"
 
+    def move_original_folder(self, dryrun=False) -> None:
+        target_root = Path(self.config.general.original_archive_dir)
+        target_root.mkdir(exist_ok=True, parents=True)
+        dest_dir = target_root / self.path.name
+        if dryrun:
+            self.logger.debug(
+                f"[DRYRUN] Would move original folder:\n  {self.path} => {dest_dir}"
+            )
+        else:
+            try:
+                self.logger.info(
+                    f"[MOVE] Moving original folder:\n  {self.path} => {dest_dir}"
+                )
+                self.path.rename(dest_dir)
+            except Exception as e:
+                self.logger.exception(f"[WARN] Failed to move original folder: {e}")
+
+    def _write_task_log(self, status="success", duration=0):
+        entry = {
+            "task_id": getattr(self, "task_id", "unknown"),
+            "timestamp": datetime.now().isoformat(timespec="seconds"),
+            "input": str(self.path),
+            "output": str(self.parent_dir),
+            "group": getattr(self, "group_name", None),
+            "anime": getattr(self, "ani_name", None),
+            "season": getattr(self, "season", None),
+            "status": status,
+            "duration": duration,
+        }
+
+        history_file = Path("tasks/history.json")
+        history_file.parent.mkdir(exist_ok=True)
+        data = []
+
+        try:
+            if history_file.exists():
+                data = json.loads(history_file.read_text(encoding="utf-8"))
+        except Exception as e:
+            self.logger.warning(f"Failed to read task history: {e}")
+
+        data.append(entry)
+
+        try:
+            history_file.write_text(json.dumps(data, indent=2, ensure_ascii=False))
+            self.logger.debug(f"[TASK {self.task_id}] Logged task result to {history_file}")
+        except Exception as e:
+            self.logger.error(f"Failed to write task log: {e}")
+
     def _handle_link(self, src_path, dest_path, ext):
         try:
             os.link(src_path, dest_path)
@@ -143,6 +202,8 @@ class AniSort(object):
             self.logger.exception(
                 f"WARN: Cannot create hard link for {src_path.name} Error: {e}"
             )
+            self.logger.error(f"[TASK {self.task_id}] Failed: {e}")
+            self._write_task_log(status="failed")
 
     def process(self, dryrun=False, move=False) -> None:
         # return
@@ -198,19 +259,8 @@ class AniSort(object):
                         )
                     )
 
-    def move_original_folder(self, dryrun=False) -> None:
-        target_root = Path(self.config.general.original_archive_dir)
-        target_root.mkdir(exist_ok=True, parents=True)
-        dest_dir = target_root / self.path.name
-        if dryrun:
-            self.logger.debug(
-                f"[DRYRUN] Would move original folder:\n  {self.path} => {dest_dir}"
-            )
-        else:
-            try:
-                self.logger.info(
-                    f"[MOVE] Moving original folder:\n  {self.path} => {dest_dir}"
-                )
-                self.path.rename(dest_dir)
-            except Exception as e:
-                self.logger.exception(f"[WARN] Failed to move original folder: {e}")
+        end_time = datetime.now()
+        duration = (end_time - self.start_time).total_seconds()
+        self.logger.info(f"[TASK {self.task_id}] Finished in {duration:.2f}s")
+
+        self._write_task_log(status="success", duration=duration)
