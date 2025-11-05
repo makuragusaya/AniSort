@@ -2,7 +2,7 @@ import os
 from utils import sanitize_filename
 from config import (TMDB_API_KEY, PATTERN, TMDB_SELECTED,
                     GENERATE_COMPARISON_TABLE, GENERATE_IGNORE_FILE, CALL_AI,
-                    AI_API_KEY, PROXIES, DELETE_UNKNOWN_FILES, TRADITIONAL_CH)
+                    AI_API_KEY, PROXIES, DELETE_UNKNOWN_FILES, TRADITIONAL_CH, DEFAULT_OUTPUT)
 from datetime import datetime
 from pathlib import Path
 from typing import Union
@@ -40,7 +40,7 @@ class AniSort(object):
         self.season: int = None
         self.ani_info: dict = self.get_ani_info(self.path.stem)
         self.ani_name: str = f'{self.ani_info["name"]} ({self.ani_info["date"]})'.replace(':', '：').replace('?', '？')
-        self.parent_dir: str = (f"{str(parent_dir).rstrip('/') if parent_dir else self.path.parent}/{sanitize_filename(self.ani_name)}")
+        self.parent_dir: str = (f"{str(parent_dir).rstrip('/') if parent_dir else DEFAULT_OUTPUT}/{sanitize_filename(self.ani_name)}")
 
         self.patterns: dict = [{**p, "regex": re.compile(p["regex"])} for p in PATTERN]
 
@@ -189,9 +189,9 @@ class AniSort(object):
         path: 文件路径
         """
         if (parse_info := self.parse(path.name)) and parse_info["normalize"]:
-            # 处理字幕文件
             if (suffix := path.suffix) == ".ass":
                 suffix_sub: str = SUFFIX_MAP.get(path.stem.split('.')[-1].lower(), '')
+                # TODO: Quick and dirty fix — refine later.
                 if suffix_sub == ".zh-TW" and TRADITIONAL_CH:
                     suffix_sub = suffix_sub + ".forced"
                 elif suffix_sub == ".zh-CN" and not TRADITIONAL_CH:
@@ -208,56 +208,50 @@ class AniSort(object):
 
         return f"{self.parent_dir}/Unknown_Files/{path.name}"
 
-    def move_files(self) -> None:
-        """移动并重命名所有文件"""
-        # 创建所有目标目录
+    def move_files(self, dryrun=False) -> None:
         dest_dirs: dict = {Path(dest).parent for dest in self.table.values()}
-        [d.mkdir(parents=True, exist_ok=True) for d in dest_dirs]
-
-        # # 批量移动文件
-        # for src, dest in self.table.items():
-        #     if not (Path(dest).is_file()):
-        #         # shutil.move(src, dest)
-        #         os.link(src, dest)
-        #     else:
-        #         self.table[src] = Path(src).name
-
-        #     print(f"自动整理：{src}\n => {self.table[src]}")
+        for d in dest_dirs:
+            if dryrun:
+                print(f"[DRYRUN] Would create directory: {d}")
+            else:
+                d.mkdir(parents=True, exist_ok=True)
 
         for src, dest in self.table.items():
             src_path = Path(src)
             dest_path = Path(dest)
 
-            # 检查目标位置是否已存在（避免覆盖）
             if not dest_path.exists():
-                try:
-                    os.link(src_path, dest_path)
-                    print(f"自动整理：{src_path.name} (已链接)\n => {dest_path}")
-                except Exception as e:
-                    print(f"警告: 无法为 {src_path.name} 创建硬链接，尝试复制。错误: {e}")
-                    # shutil.copy2(src_path, dest_path) # 使用 copy2 保留文件元数据
-                    # print(f"自动整理：{src_path.name} (已复制)\n => {dest_path}")
-
+                if dryrun:
+                    print(f"[DRYRUN] Would link: {src_path} => {dest_path}")
+                else:
+                    try:
+                        os.link(src_path, dest_path)
+                        print(f"Arrange: {src_path.name} (Linked)\n => {dest_path}")
+                    except Exception as e:
+                        print(f"WARN: Cannot create hard link for {src_path.name} Error: {e}")
             else:
                 self.table[src] = src_path.name
-                print(f"跳过: 目标文件 {dest_path} 已存在。")
+                print(f"Skipped: Target file {dest_path} alreday exists.")
 
-
-        # 生成 .ignore 文件
         if GENERATE_IGNORE_FILE:
             for root in Path(self.parent_dir).rglob("*/"):
                 if root.name in ["Interviews", "Other", "Unknown_Files"]:
-                    (root / ".ignore").write_text('', encoding="utf-8")
+                    if dryrun:
+                        print(f"[DRYRUN] Would write .ignore in: {root}")
+                    else:
+                        (root / ".ignore").write_text('', encoding="utf-8")
 
-        # 写入对照表
         if GENERATE_COMPARISON_TABLE:
-            with open(f"{self.parent_dir}/Comparison_Table.txt",
-                      "a",
-                      encoding="utf-8") as file:
-                file.write("\n" + "\n\n".join(
-                    "{}\n└── {}".format('/'.join(Path(v).parts[-2:]),
-                                        Path(k).name)
-                    for k, v in self.table.items()))
+            if dryrun:
+                print(f"[DRYRUN] Would append Comparison_Table.txt in {self.parent_dir}")
+            else:
+                with open(f"{self.parent_dir}/Comparison_Table.txt",
+                          "a",
+                          encoding="utf-8") as file:
+                    file.write("\n" + "\n\n".join(
+                        "{}\n└── {}".format('/'.join(Path(v).parts[-2:]),
+                                            Path(k).name)
+                        for k, v in self.table.items()))
 
 
 if __name__ == "__main__":
@@ -268,4 +262,5 @@ if __name__ == "__main__":
     if len(sys.argv) > 2:
         output_dir = sys.argv[2]
         print("output dir: ", output_dir)
-    AniSort(input_folder, output_dir).move_files()
+
+    AniSort(input_folder, output_dir).move_files(dryrun=True)
