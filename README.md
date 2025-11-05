@@ -2,8 +2,9 @@
 ## TODO list
 
 [x] Hard link
-[] Environment variable
+[x] New config
 [] ignore Unknown Files 
+[] Switch Jellyfin/Plex
 [] Subtitle subset
 [] Database
 [] Web API
