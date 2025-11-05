@@ -5,7 +5,7 @@
 - [x] New config
 - [x] ignore Unknown Files 
 - [x] log system
-- [ ] Subtitle subset
+- [x] Subtitle subset
 - [ ] Web API
 - [ ] Database
 - [ ] Switch Jellyfin/Plex
