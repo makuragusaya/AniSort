@@ -1,0 +1,21 @@
+general:
+  ignore_unknown_files: true
+  generate_comparison_table: true
+  generate_ignore_file: true
+  trad_chinese: true
+  default_output: "./test/default/"
+  proxies: {}
+
+tmdb:
+  api: "!env TMDB_API_KEY"
+  selected: false
+
+ai:
+  provider: "deepseek"
+  api: "!env AI_API_KEY"
+  call: false
+
+features:
+  hardlink: true
+  dryrun: true
+

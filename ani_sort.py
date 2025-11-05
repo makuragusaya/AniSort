@@ -1,14 +1,10 @@
 import os
 from utils import sanitize_filename
-from config import (TMDB_API_KEY, PATTERN, TMDB_SELECTED,
-                    GENERATE_COMPARISON_TABLE, GENERATE_IGNORE_FILE, CALL_AI,
-                    AI_API_KEY, PROXIES, DELETE_UNKNOWN_FILES, TRADITIONAL_CH, DEFAULT_OUTPUT)
-from datetime import datetime
+from config.config_manager import load_config
 from pathlib import Path
 from typing import Union
 import difflib
 import requests
-import shutil
 import re
 import sys
 
@@ -34,15 +30,23 @@ AI_PROMPT2: str = "请你根据我发送的相关信息解析这个番剧文件�
 
 class AniSort(object):
 
-    def __init__(self, path: Union[str, Path], parent_dir: Union[str, Path] = None) -> None:
-        self.path: Path = Path(path.strip('"\'')) if isinstance(path, str) else path
+    def __init__(self,
+                 path: Union[str, Path],
+                 parent_dir: Union[str, Path] = None) -> None:
+        self.path: Path = Path(path.strip('"\'')) if isinstance(path,
+                                                                str) else path
 
         self.season: int = None
         self.ani_info: dict = self.get_ani_info(self.path.stem)
-        self.ani_name: str = f'{self.ani_info["name"]} ({self.ani_info["date"]})'.replace(':', '：').replace('?', '？')
-        self.parent_dir: str = (f"{str(parent_dir).rstrip('/') if parent_dir else DEFAULT_OUTPUT}/{sanitize_filename(self.ani_name)}")
+        self.ani_name: str = f'{self.ani_info["name"]} ({self.ani_info["date"]})'.replace(
+            ':', '：').replace('?', '？')
+        self.parent_dir: str = (
+            f"{str(parent_dir).rstrip('/') if parent_dir else general.default_output}/{sanitize_filename(self.ani_name)}"
+        )
 
-        self.patterns: dict = [{**p, "regex": re.compile(p["regex"])} for p in PATTERN]
+        self.patterns: dict = [{
+            **p, "regex": re.compile(p["regex"])
+        } for p in patterns]
 
         self.table: dict = {
             str(file): self.normalize(file)
@@ -78,7 +82,7 @@ class AniSort(object):
             res = requests.post(
                 url="https://api.deepseek.com/chat/completions",
                 headers={
-                    "Authorization": f"Bearer {AI_API_KEY}",
+                    "Authorization": f"Bearer {ai.api}",
                     "Content-Type": "application/json"
                 },
                 json={
@@ -99,9 +103,9 @@ class AniSort(object):
             res = requests.get(url=url,
                                params={
                                    **params, "language": "zh-CN",
-                                   "api_key": TMDB_API_KEY
+                                   "api_key": tmdb.api
                                },
-                               proxies=PROXIES,
+                               proxies=general.proxies,
                                headers={"accept": "application/json"},
                                timeout=60)
             res.raise_for_status()
@@ -113,15 +117,15 @@ class AniSort(object):
         """获取番剧的信息
         name: 番剧文件名
         """
-        query: str = print("调用 AI - 1") or self.call_ai(f"{name}\n\n{AI_PROMPT1}") if CALL_AI \
+        query: str = print("调用 AI - 1") or self.call_ai(f"{name}\n\n{AI_PROMPT1}") if ai.call\
             else (match := re.match(r"(?i)(.+?)(?:_s(\d+)){0,1}$", re.sub(r"\s*(\[|\().*?(\]|\))\s*", '', name)))[1]
         res = print("调用 TMDB") or self.call_tmdb(
-            url=f"https://api.themoviedb.org/3/search/tv",
+            url="https://api.themoviedb.org/3/search/tv",
             params={"query": query})
 
         try:
             info: dict = res.json()["results"][0]
-            if TMDB_SELECTED and res.json()["results"]:
+            if tmdb.selected and res.json()["results"]:
                 # 处理是否手动选择 TMDB 的搜索结果
                 print("\n" + '\n'.join(
                     f'{i}、{j["name"]} ({j["first_air_date"] if j["first_air_date"] else "None"})'
@@ -129,10 +133,10 @@ class AniSort(object):
 
                 if (_input := input("请输入你想选择的结果的序号：")).isdigit():
                     info: dict = res.json()["results"][int(_input)]
-        except:
-            raise Exception("无法搜索到该动漫，请更改文件夹名称后再试一次")
+        except Exception as e:
+            raise Exception(f"无法搜索到该动漫，请更改文件夹名称后再试一次 {e}")
 
-        if CALL_AI:
+        if ai.call:
             seasons_info: list = self.call_tmdb(
                 url=f'https://api.themoviedb.org/3/tv/{info["id"]}').json(
                 )["seasons"]
@@ -190,11 +194,12 @@ class AniSort(object):
         """
         if (parse_info := self.parse(path.name)) and parse_info["normalize"]:
             if (suffix := path.suffix) == ".ass":
-                suffix_sub: str = SUFFIX_MAP.get(path.stem.split('.')[-1].lower(), '')
+                suffix_sub: str = SUFFIX_MAP.get(
+                    path.stem.split('.')[-1].lower(), '')
                 # TODO: Quick and dirty fix — refine later.
-                if suffix_sub == ".zh-TW" and TRADITIONAL_CH:
+                if suffix_sub == ".zh-TW" and general.trad_chinese:
                     suffix_sub = suffix_sub + ".forced"
-                elif suffix_sub == ".zh-CN" and not TRADITIONAL_CH:
+                elif suffix_sub == ".zh-CN" and not general.trad_chinese:
                     suffix_sub = suffix_sub + ".forced"
                 suffix: str = suffix_sub + suffix
 
@@ -222,18 +227,22 @@ class AniSort(object):
 
             if not dest_path.exists():
                 if dryrun:
-                    print(f"[DRYRUN] Would link: {src_path} => {dest_path}")
+                    print(f"[DRYRUN] Would link: {src_path}\n => {dest_path}")
                 else:
                     try:
                         os.link(src_path, dest_path)
-                        print(f"Arrange: {src_path.name} (Linked)\n => {dest_path}")
+                        print(
+                            f"Arrange: {src_path.name} (Linked)\n => {dest_path}"
+                        )
                     except Exception as e:
-                        print(f"WARN: Cannot create hard link for {src_path.name} Error: {e}")
+                        print(
+                            f"WARN: Cannot create hard link for {src_path.name} Error: {e}"
+                        )
             else:
                 self.table[src] = src_path.name
                 print(f"Skipped: Target file {dest_path} alreday exists.")
 
-        if GENERATE_IGNORE_FILE:
+        if general.generate_ignore_file:
             for root in Path(self.parent_dir).rglob("*/"):
                 if root.name in ["Interviews", "Other", "Unknown_Files"]:
                     if dryrun:
@@ -241,9 +250,11 @@ class AniSort(object):
                     else:
                         (root / ".ignore").write_text('', encoding="utf-8")
 
-        if GENERATE_COMPARISON_TABLE:
+        if general.generate_comparison_table:
             if dryrun:
-                print(f"[DRYRUN] Would append Comparison_Table.txt in {self.parent_dir}")
+                print(
+                    f"[DRYRUN] Would append Comparison_Table.txt in {self.parent_dir}"
+                )
             else:
                 with open(f"{self.parent_dir}/Comparison_Table.txt",
                           "a",
@@ -255,6 +266,17 @@ class AniSort(object):
 
 
 if __name__ == "__main__":
+    try:
+        config = load_config()
+    except Exception as e:
+        print(f"[FATAL] Failed to load configuration: {e}")
+        sys.exit(1)
+
+    general = config.general
+    tmdb = config.tmdb
+    ai = config.ai
+    patterns = config.patterns
+
     output_dir = None
     if len(sys.argv) > 1:
         input_folder = sys.argv[1]
