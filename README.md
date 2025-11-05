@@ -3,7 +3,7 @@
 
 [x] Hard link
 [x] New config
-[] ignore Unknown Files 
+[x] ignore Unknown Files 
 [] Switch Jellyfin/Plex
 [] Subtitle subset
 [] Database
