@@ -55,7 +55,9 @@ class AniSort(object):
             f"{str(parent_dir).rstrip('/') if parent_dir else str(self.general.default_output).rstrip('/')}/{sanitize_filename(self.ani_name)}"
         )
 
-        self.patterns: dict = [{**p, "regex": re.compile(p["regex"])} for p in self.patterns]
+        self.patterns: dict = [
+            {**p, "regex": re.compile(p["regex"])} for p in self.patterns
+        ]
 
         self.table: dict = {
             str(file): self.normalize(file) for file in self.get_all_files(self.path)
@@ -256,9 +258,9 @@ class AniSort(object):
             if (suffix := path.suffix.lower()) == ".ass":
                 suffix_sub: str = SUFFIX_MAP.get(path.stem.split(".")[-1].lower(), "")
                 # TODO: Quick and dirty fix — refine later.
-                if suffix_sub == ".zh-TW" and self.general.trad_chinese:
+                if suffix_sub == ".zh-TW" and self.general.chinese_traditional:
                     suffix_sub = suffix_sub + ".forced"
-                elif suffix_sub == ".zh-CN" and not self.general.trad_chinese:
+                elif suffix_sub == ".zh-CN" and not self.general.chinese_traditional:
                     suffix_sub = suffix_sub + ".forced"
                 suffix: str = suffix_sub + suffix
             if suffix in self.ignore_exts:
@@ -293,7 +295,7 @@ class AniSort(object):
         except Exception as e:
             print(f"WARN: Cannot create hard link for {src_path.name} Error: {e}")
 
-    def main(self, dryrun=False, verbose=False) -> None:
+    def main(self, dryrun=False, verbose=False, move=False) -> None:
         # return
         dest_dirs: dict = {Path(dest).parent for dest in self.table.values()}
         for d in dest_dirs:
@@ -319,7 +321,7 @@ class AniSort(object):
                 self.table[src] = src_path.name
                 print(f"Skipped: Target file {dest_path} alreday exists.")
 
-        if self.general.generate_ignore_file:
+        if self.general.ignore_file:
             for root in Path(self.parent_dir).rglob("*/"):
                 if root.name in ["Interviews", "Other", "Unknown_Files"]:
                     if dryrun:
@@ -327,7 +329,7 @@ class AniSort(object):
                     else:
                         (root / ".ignore").write_text("", encoding="utf-8")
 
-        if self.general.generate_comparison_table:
+        if self.general.comparison_table:
             if dryrun:
                 print(
                     f"[DRYRUN] Would append Comparison_Table.txt in {self.parent_dir}"
@@ -345,22 +347,42 @@ class AniSort(object):
                             for k, v in self.table.items()
                         )
                     )
+        if move or self.general.move_original:
+            target_root = Path(self.general.original_archive_dir)
+            target_root.mkdir(exist_ok=True, parents=True)
+            dest_dir = target_root / self.path.name
+            if dryrun:
+                print(
+                    f"[DRYRUN] Would move original folder:\n  {self.path} => {dest_dir}"
+                )
+            else:
+                try:
+                    print(
+                        f"[MOVE] Moving original folder:\n  {self.path} => {dest_dir}"
+                    )
+                    self.path.rename(dest_dir)
+                except Exception as e:
+                    print(f"[WARN] Failed to move original folder: {e}")
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="Anime BD Organizer (AniSort) CLI"
-    )
+    parser = argparse.ArgumentParser(description="Anime BD Organizer (AniSort) CLI")
     parser.add_argument("input", help="Input folder path")
     parser.add_argument("output", nargs="?", help="Optional output folder path")
-    parser.add_argument("--dryrun", action="store_true", help="Preview only, no changes")
+    parser.add_argument(
+        "--dryrun", action="store_true", help="Preview only, no changes"
+    )
     parser.add_argument("--verbose", action="store_true", help="Show detailed logs")
+    parser.add_argument(
+        "--move",
+        action="store_true",
+        help="Move the original input folder to a designated location after sorting",
+    )
     args = parser.parse_args()
 
     input_folder = args.input
     output_dir = args.output  # None if not provided
 
     AniSort(input_folder, output_dir).main(
-        dryrun=args.dryrun,
-        verbose=args.verbose
+        dryrun=args.dryrun, verbose=args.verbose, move=args.move
     )

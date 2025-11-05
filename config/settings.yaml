@@ -1,10 +1,12 @@
 general:
-  ignore_unknown_files: true
-  generate_comparison_table: true
-  generate_ignore_file: true
-  trad_chinese: true
+  ignore_unknown: true
+  comparison_table: true
+  ignore_file: true
+  chinese_traditional: true
   default_output: "./test/default/"
   proxies: {}
+  move_original: false
+  original_archive_dir: "./test/orig"
 
 tmdb:
   api: "!env TMDB_API_KEY"

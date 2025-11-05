@@ -18,12 +18,14 @@ class AIConfig(BaseModel):
 
 
 class GeneralConfig(BaseModel):
-    ignore_unknown_files: bool
-    generate_comparison_table: bool
-    generate_ignore_file: bool
-    trad_chinese: bool
+    ignore_unknown: bool 
+    comparison_table: bool
+    ignore_file: bool
+    chinese_traditional: bool
     default_output: str
     proxies: dict
+    move_original: bool
+    original_archive_dir: str
 
 
 class AppConfig(BaseModel):
