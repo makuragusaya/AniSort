@@ -1,7 +1,7 @@
 import os
 import yaml
 from dotenv import load_dotenv
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, validator
 
 
 class TMDBConfig(BaseModel):
@@ -18,7 +18,7 @@ class AIConfig(BaseModel):
 
 
 class GeneralConfig(BaseModel):
-    ignore_unknown: bool 
+    ignore_unknown: bool
     comparison_table: bool
     ignore_file: bool
     chinese_traditional: bool
@@ -32,9 +32,13 @@ class AppConfig(BaseModel):
     general: GeneralConfig
     tmdb: TMDBConfig
     ai: AIConfig
-    features: dict
     ignore_exts: list
     patterns: list[dict]
+
+
+@validator("default_output", "original_archive_dir")
+def ensure_trailing_slash(cls, v):
+    return v.rstrip("/") + "/"
 
 
 def load_config():
