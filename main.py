@@ -1,8 +1,5 @@
 import argparse
-import sys
-from ani_sort.config_manager import load_config
-from ani_sort.logging import setup_logger
-from ani_sort.core import AniSort
+from ani_sort.task import run_sort_task
 
 
 def main():
@@ -20,19 +17,8 @@ def main():
     )
     args = parser.parse_args()
 
-    logger = setup_logger(verbose=args.verbose)
-
-    try:
-        config = load_config()
-    except Exception as e:
-        logger.critical(f"Failed to load configuration: {e}")
-        sys.exit(1)
-
-    sorter = AniSort(args.input, args.output, config, logger)
-    sorter.main(dryrun=args.dryrun)
-
-    if args.move and config.features.get("move_original", False):
-        sorter.move_original_folder(dryrun=args.dryrun)
+    status = run_sort_task(args.input, args.output, args.dryrun, args.verbose)["status"]
+    print(f"Run sort task: {status}")
 
 
 if __name__ == "__main__":

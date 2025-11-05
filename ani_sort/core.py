@@ -32,12 +32,6 @@ class AniSort(object):
         self.config = config
         self.logger = logger or logging.getLogger(__name__)
 
-        self.ignore_exts = self.config.ignore_exts
-        self.general = self.config.general
-        self.tmdb = self.config.tmdb
-        self.ai = self.config.ai
-        self.patterns = self.config.patterns
-
         self.ani_info: dict = get_ani_info(self.path.stem, self.config, self.logger)
         self.season: int = self.ani_info["season"]
         self.ani_name: str = (
@@ -49,11 +43,11 @@ class AniSort(object):
         self.group_name: str = self.extra_info["group"]
 
         self.parent_dir: str = (
-            f"{str(parent_dir).rstrip('/') if parent_dir else str(self.general.default_output).rstrip('/')}/{sanitize_filename(self.ani_name)}"
+            f"{str(parent_dir).rstrip('/')}/{sanitize_filename(self.ani_name)}"
         )
 
-        self.patterns: dict = [
-            {**p, "regex": re.compile(p["regex"])} for p in self.patterns
+        self.config.patterns: dict = [
+            {**p, "regex": re.compile(p["regex"])} for p in self.config.patterns
         ]
 
         self.table: dict = {
@@ -73,7 +67,7 @@ class AniSort(object):
         """解析番剧文件名
         name: 番剧文件名
         """
-        for p in self.patterns:
+        for p in self.config.patterns:
             if match := p["regex"].search(name):
                 if p["type"] == "SE_EP":
                     season, match_2 = int(match[1]), match[2]
@@ -109,12 +103,12 @@ class AniSort(object):
             if (suffix := path.suffix.lower()) == ".ass":
                 suffix_sub: str = SUFFIX_MAP.get(path.stem.split(".")[-1].lower(), "")
                 # TODO: Quick and dirty fix — refine later.
-                if suffix_sub == ".zh-TW" and self.general.chinese_traditional:
+                if suffix_sub == ".zh-TW" and self.config.general.chinese_traditional:
                     suffix_sub = suffix_sub + ".forced"
-                elif suffix_sub == ".zh-CN" and not self.general.chinese_traditional:
+                elif suffix_sub == ".zh-CN" and not self.config.general.chinese_traditional:
                     suffix_sub = suffix_sub + ".forced"
                 suffix: str = suffix_sub + suffix
-            if suffix in self.ignore_exts:
+            if suffix in self.config.ignore_exts:
                 return "ignore"
 
             return (
@@ -134,7 +128,7 @@ class AniSort(object):
             )
 
         suffix = path.suffix.lower()
-        if suffix in self.ignore_exts:
+        if suffix in self.config.ignore_exts:
             return "ignore"
 
         return f"{self.parent_dir}/Unknown_Files/{path.name}"
@@ -150,7 +144,7 @@ class AniSort(object):
                 f"WARN: Cannot create hard link for {src_path.name} Error: {e}"
             )
 
-    def main(self, dryrun=False, move=False) -> None:
+    def process(self, dryrun=False, move=False) -> None:
         # return
         dest_dirs: dict = {Path(dest).parent for dest in self.table.values()}
         for d in dest_dirs:
@@ -177,7 +171,7 @@ class AniSort(object):
                 self.table[src] = src_path.name
                 self.logger.info(f"Skipped: Target file {dest_path} alreday exists.")
 
-        if self.general.ignore_file:
+        if self.config.general.ignore_file:
             for root in Path(self.parent_dir).rglob("*/"):
                 if root.name in ["Interviews", "Other", "Unknown_Files"]:
                     if dryrun:
@@ -185,7 +179,7 @@ class AniSort(object):
                     else:
                         (root / ".ignore").write_text("", encoding="utf-8")
 
-        if self.general.comparison_table:
+        if self.config.general.comparison_table:
             if dryrun:
                 self.logger.debug(
                     f"[DRYRUN] Would append Comparison_Table.txt in {self.parent_dir}"
@@ -205,7 +199,7 @@ class AniSort(object):
                     )
 
     def move_original_folder(self, dryrun=False) -> None:
-        target_root = Path(self.general.original_archive_dir)
+        target_root = Path(self.config.general.original_archive_dir)
         target_root.mkdir(exist_ok=True, parents=True)
         dest_dir = target_root / self.path.name
         if dryrun:

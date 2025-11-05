@@ -4,10 +4,10 @@
 [x] Hard link
 [x] New config
 [x] ignore Unknown Files 
-[] log system
+[x] log system
 [] Subtitle subset
-[] Database
 [] Web API
+[] Database
 [] Switch Jellyfin/Plex
 
 ---
