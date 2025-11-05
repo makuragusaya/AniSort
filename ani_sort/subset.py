@@ -4,6 +4,24 @@ from pathlib import Path
 import logging
 
 
+def run_cmd(cmd, logger, cwd=None):
+    """运行命令并捕获输出，如果包含 [ERROR] 或非零退出码则返回 False。"""
+    result = subprocess.run(
+        cmd,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        cwd=cwd,
+    )
+    output = result.stdout
+    if "[ERROR]" in output or result.returncode != 0:
+        logger.error(f"Command failed: {' '.join(cmd)}")
+        logger.error(output)
+        return False
+    logger.debug(output)
+    return True
+
+
 def subset_ass_fonts(target_dir: str | Path, logger: logging.Logger | None = None):
     """
     对目标文件夹内的所有 ASS 文件执行字体子集化和嵌入操作。
@@ -28,7 +46,8 @@ def subset_ass_fonts(target_dir: str | Path, logger: logging.Logger | None = Non
 
     ignore_dirs = {"old_sub", "subsetted"}
     ass_files = [
-        f for f in target_dir.rglob("*.ass")
+        f
+        for f in target_dir.rglob("*.ass")
         if not any(p.name in ignore_dirs for p in f.parents)
     ]
 
@@ -36,10 +55,8 @@ def subset_ass_fonts(target_dir: str | Path, logger: logging.Logger | None = Non
         logger.info("=" * 50)
         logger.info(f"处理文件: {ass_file}")
 
-        file_name = ass_file.stem
-        ass_dir = ass_file.parent
-        subset_dir = ass_dir / f"{file_name}_subsetted"
-        backup_dir = ass_dir / "old_sub"
+        subset_dir = ass_file.parent / f"{ass_file.stem}_subsetted"
+        backup_dir = ass_file.parent / "old_sub"
 
         # 清理并准备输出目录
         if subset_dir.exists():
@@ -49,10 +66,10 @@ def subset_ass_fonts(target_dir: str | Path, logger: logging.Logger | None = Non
 
         # Step 1: 抽取字体
         logger.info(f"1. 抽取并子集化字体到 {subset_dir}")
-        subprocess.run(
-            ["assfonts", "-o", str(subset_dir), "-s", "-i", str(ass_file)],
-            check=False,
-        )
+        if not run_cmd(["assfonts", "-o", str(subset_dir), "-s", "-i", str(ass_file)], logger):
+            logger.warning(f"跳过该文件，因字体子集化失败: {ass_file}")
+            shutil.rmtree(subset_dir, ignore_errors=True)
+            continue
 
         # Step 2: 转换 OTF → TTF（如果 otf2ttf 可用）
         otf_files = list(subset_dir.glob("*.otf"))
@@ -62,10 +79,10 @@ def subset_ass_fonts(target_dir: str | Path, logger: logging.Logger | None = Non
 
         # Step 3: 嵌入子集字体
         logger.info("3. 将子集化字体嵌入到 ASS 文件中...")
-        subprocess.run(
-            ["assfonts", "-f", str(subset_dir), "-i", str(ass_file)],
-            check=False,
-        )
+        if not run_cmd(["assfonts", "-f", str(subset_dir), "-i", str(ass_file)], logger):
+            logger.warning(f"跳过该文件，因嵌入阶段失败: {ass_file}")
+            shutil.rmtree(subset_dir, ignore_errors=True)
+            continue
 
         # Step 4: 清理
         logger.info(f"4. 删除临时文件夹 {subset_dir}")
