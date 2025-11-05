@@ -46,6 +46,11 @@ class AniSort(object):
         self.extra_info: dict = extract_groups(self.path.stem)
         self.group_name: str = self.extra_info["group"]
 
+        if parent_dir is None or str(parent_dir).strip() == "":
+            parent_dir = Path(self.config.general.default_output)
+        else:
+            parent_dir = Path(parent_dir)
+
         self.parent_dir: str = (
             f"{str(parent_dir).rstrip('/')}/{sanitize_filename(self.ani_name)}"
         )

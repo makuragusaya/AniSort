@@ -6,11 +6,11 @@ def extract_groups(stem: str) -> dict:
     """提取字幕组与其他标签信息"""
     candidates = re.findall(r"(?:\[|\()(.*?)(?:\]|\))", stem)
     ignore_patterns = [
-        r"\d{3,4}p",
-        r"\d{4}",
-        r"\b10bit\b",
-        r"Ma10p",
-        r"HEVC|AVC|x265|x264",
+        # r"\d{3,4}p",
+        # r"\d{4}",
+        # r"\b10bit\b",
+        # r"Ma10p",
+        # r"HEVC|AVC|x265|x264",
     ]
 
     group = candidates[0] if candidates else None
