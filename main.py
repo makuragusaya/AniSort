@@ -8,6 +8,8 @@ import requests
 import re
 import sys
 import argparse
+from ani_sort.logging import setup_logger
+import logging
 
 SUFFIX_MAP = {
     "chs": ".zh-CN",
@@ -30,7 +32,7 @@ class AniSort(object):
         try:
             self.config = load_config()
         except Exception as e:
-            print(f"[FATAL] Failed to load configuration: {e}")
+            logger.error(f"[FATAL] Failed to load configuration: {e}")
             sys.exit(1)
 
         self.ignore_exts = self.config.ignore_exts
@@ -63,14 +65,14 @@ class AniSort(object):
             str(file): self.normalize(file) for file in self.get_all_files(self.path)
         }
 
-        print("path: ", self.path)
-        print("path.stem: ", self.path.stem)
-        print("season: ", self.season)
-        print("ani_info: ", self.ani_info)
-        print("ani_name: ", self.ani_name)
-        print("extra_info: ", self.extra_info)
-        print("group_name: ", self.group_name)
-        print("parent_dir: ", self.parent_dir)
+        logger.debug("path: ", self.path)
+        logger.debug("path.stem: ", self.path.stem)
+        logger.debug("season: ", self.season)
+        logger.debug("ani_info: ", self.ani_info)
+        logger.debug("ani_name: ", self.ani_name)
+        logger.debug("extra_info: ", self.extra_info)
+        logger.debug("group_name: ", self.group_name)
+        logger.debug("parent_dir: ", self.parent_dir)
 
     def get_all_files(self, path: Path) -> list:
         """获取文件夹内所有文件，先按层级分类，再按相似度排序
@@ -144,7 +146,6 @@ class AniSort(object):
 
         group = None
         others = []
-        print("candidates:", candidates)
 
         for i, item in enumerate(candidates):
             if i == 0:
@@ -164,7 +165,7 @@ class AniSort(object):
         name: 番剧文件名
         """
         query: str = (
-            print("调用 AI - 1") or self.call_ai(f"{name}\n\n{self.ai.prompt1}")
+            logger.info("调用 AI - 1") or self.call_ai(f"{name}\n\n{self.ai.prompt1}")
             if self.ai.call
             else (
                 match := re.match(
@@ -173,13 +174,13 @@ class AniSort(object):
                 )
             )[1]
         )
-        res = print("调用 TMDB") or self.call_tmdb(
+        res = logger.info("调用 TMDB") or self.call_tmdb(
             url="https://api.themoviedb.org/3/search/tv", params={"query": query}
         )
         try:
             info: dict = res.json()["results"][0]
             if self.tmdb.manual and res.json()["results"]:
-                print(
+                logger.info(
                     "\n"
                     + "\n".join(
                         f'{i}、{j["name"]} ({j["first_air_date"] if j["first_air_date"] else "None"})'
@@ -207,7 +208,7 @@ class AniSort(object):
                     )
                 ]
             )
-            self.season: int = print("调用 AI - 2") or int(
+            self.season: int = logger.info("调用 AI - 2") or int(
                 self.call_ai(f"{name}\n\n{seasons_conten}\n\n{self.ai.prompt2}")
             )
         else:
@@ -291,16 +292,18 @@ class AniSort(object):
     def _handle_link(self, src_path, dest_path, ext):
         try:
             os.link(src_path, dest_path)
-            print(f"Arrange: [{ext}] {src_path.name} (Linked)\n => {dest_path}")
+            logger.info(f"Arrange: [{ext}] {src_path.name} (Linked)\n => {dest_path}")
         except Exception as e:
-            print(f"WARN: Cannot create hard link for {src_path.name} Error: {e}")
+            logger.exception(
+                f"WARN: Cannot create hard link for {src_path.name} Error: {e}"
+            )
 
-    def main(self, dryrun=False, verbose=False, move=False) -> None:
+    def main(self, dryrun=False, move=False) -> None:
         # return
         dest_dirs: dict = {Path(dest).parent for dest in self.table.values()}
         for d in dest_dirs:
             if dryrun:
-                print(f"[DRYRUN] Would create directory: {d}")
+                logger.debug(f"[DRYRUN] Would create directory: {d}")
             else:
                 d.mkdir(parents=True, exist_ok=True)
 
@@ -310,28 +313,29 @@ class AniSort(object):
             ext = src_path.suffix.upper()
 
             if dest == "ignore":
-                if verbose:
-                    print(f"Ignore [{ext}] : {src_path}\n ")
+                logger.debug(f"Ignore [{ext}] : {src_path}\n ")
             elif not dest_path.exists():
                 if dryrun:
-                    print(f"[DRYRUN] [{ext}] Would link: {src_path}\n => {dest_path}")
+                    logger.debug(
+                        f"[DRYRUN] [{ext}] Would link: {src_path}\n => {dest_path}"
+                    )
                 else:
                     self._handle_link(src_path, dest_path, ext)
             else:
                 self.table[src] = src_path.name
-                print(f"Skipped: Target file {dest_path} alreday exists.")
+                logger.info(f"Skipped: Target file {dest_path} alreday exists.")
 
         if self.general.ignore_file:
             for root in Path(self.parent_dir).rglob("*/"):
                 if root.name in ["Interviews", "Other", "Unknown_Files"]:
                     if dryrun:
-                        print(f"[DRYRUN] Would write .ignore in: {root}")
+                        logger.debug(f"[DRYRUN] Would write .ignore in: {root}")
                     else:
                         (root / ".ignore").write_text("", encoding="utf-8")
 
         if self.general.comparison_table:
             if dryrun:
-                print(
+                logger.debug(
                     f"[DRYRUN] Would append Comparison_Table.txt in {self.parent_dir}"
                 )
             else:
@@ -352,20 +356,21 @@ class AniSort(object):
             target_root.mkdir(exist_ok=True, parents=True)
             dest_dir = target_root / self.path.name
             if dryrun:
-                print(
+                logger.debug(
                     f"[DRYRUN] Would move original folder:\n  {self.path} => {dest_dir}"
                 )
             else:
                 try:
-                    print(
+                    logger.info(
                         f"[MOVE] Moving original folder:\n  {self.path} => {dest_dir}"
                     )
                     self.path.rename(dest_dir)
                 except Exception as e:
-                    print(f"[WARN] Failed to move original folder: {e}")
+                    logger.exception(f"[WARN] Failed to move original folder: {e}")
 
 
 if __name__ == "__main__":
+
     parser = argparse.ArgumentParser(description="Anime BD Organizer (AniSort) CLI")
     parser.add_argument("input", help="Input folder path")
     parser.add_argument("output", nargs="?", help="Optional output folder path")
@@ -379,10 +384,9 @@ if __name__ == "__main__":
         help="Move the original input folder to a designated location after sorting",
     )
     args = parser.parse_args()
+    logger: logging.Logger = setup_logger(verbose=args.verbose)
 
     input_folder = args.input
     output_dir = args.output  # None if not provided
 
-    AniSort(input_folder, output_dir).main(
-        dryrun=args.dryrun, verbose=args.verbose, move=args.move
-    )
+    AniSort(input_folder, output_dir).main(dryrun=args.dryrun, move=args.move)
