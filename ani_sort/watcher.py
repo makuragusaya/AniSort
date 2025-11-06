@@ -30,17 +30,31 @@ class FolderWatcher(FileSystemEventHandler):
             print(f"[Watcher] Folder moved into watched/: {dest_path}")
             self.callback(dest_path)
 
+    def on_deleted(self, event):
+        if event.is_directory and self.is_top_level_folder(Path(event.src_path)):
+            print(f"[Watcher] Folder deleted from watched/: {event.src_path}")
+            # self.callback_deleted(Path(event.src_path))
+
 
 def start_watcher(path, callback):
     observer = Observer()
     handler = FolderWatcher(path, callback)
+
+    print(f"[Watcher] Performing initial scan for existing folders in {path}")
+    for folder in path.iterdir():
+        if folder.is_dir():
+            print(f"[Watcher] Found existing folder: {folder}")
+            callback(folder, source="initial_scan")
+
     observer.schedule(handler, str(path), recursive=True)
     observer_thread = threading.Thread(target=observer.start, daemon=True)
     observer_thread.start()
     print(f"[Watcher] Monitoring folder: {path}")
+
     return observer
 
-	# 1.	启动时对每个 library 路径执行一次全量扫描；
-	# 2.	注册 watcher 监听“文件新增/修改/删除”；
-	# 3.	若 watcher 出错，退回定时扫描；
-	# 4.	删除检测：当触发 on_deleted 事件时，立即在 DB 中标记该媒体条目为“missing”。
+
+# 1.	启动时对每个 library 路径执行一次全量扫描；
+# 2.	注册 watcher 监听“文件新增/修改/删除”；
+# 3.	若 watcher 出错，退回定时扫描；
+# 4.	删除检测：当触发 on_deleted 事件时，立即在 DB 中标记该媒体条目为“missing”。
