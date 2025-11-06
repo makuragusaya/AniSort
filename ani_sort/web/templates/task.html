@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AniSort Dashboard</title>
+</head>
+<body>
+  <h1>AniSort Tasks</h1>
+
+  <form action="/tasks/run" method="post">
+    <input type="text" name="input_path" placeholder="Input folder" required>
+    <input type="text" name="output_path" placeholder="Output folder (optional)">
+    <button type="submit">Run Sort</button>
+  </form>
+
+  <hr>
+  <ul>
+    {% for task in tasks %}
+      <li>
+        <b>{{ task.id }}</b> – {{ task.anime_id }} - {{ task.input_path }}
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
