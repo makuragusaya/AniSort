@@ -2,7 +2,7 @@ from datetime import datetime
 from ani_sort.core import AniSort
 from ani_sort.logging import setup_logger
 from ani_sort.config_manager import load_config
-from ani_sort.db import SessionLocal, Task, get_or_create_anime
+from ani_sort.db import SessionLocal, Task, get_or_create_anime, WatchedFolder
 
 
 def run_sort_task(
@@ -48,6 +48,12 @@ def run_sort_task(
     session.add(task)
     session.commit()
 
+    watched = session.query(WatchedFolder).filter_by(path=input_path).first()
+    if watched:
+        watched.status = "processing"
+        watched.task_id = task.id
+        session.commit()
+
     try:
         sorter = AniSort(input_path, output_dir, config, logger)
         sorter.process(dryrun=effective_dryrun)
@@ -75,6 +81,8 @@ def run_sort_task(
         if task.success:
             anime.status = "done"
             anime.last_updated = datetime.now()
+            if watched:
+                watched.status = "processed"
         elif anime.status == "done":
             anime.status = "update failed"
         else:

@@ -7,8 +7,10 @@
 - [x] log system
 - [x] Subtitle subset
 - [x] Database
+- [ ] Recursion handle
 - [ ] Web API
 - [ ] Switch Jellyfin/Plex
+
 
 ---
 

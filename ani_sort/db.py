@@ -62,7 +62,22 @@ class WatchedFolder(Base):
     path = Column(String, unique=True)
     detected_at = Column(DateTime, default=datetime.now)
     task_id = Column(Integer, ForeignKey("tasks.id"), nullable=True)
-    status = Column(String, default="detected")  # detected, processing, processed, removed
+    status = Column(
+        String, default="detected"
+    )  # detected, processing, processed, removed
+
+
+def get_or_create_watchfolder(db, path, status):
+    watch = db.query(WatchedFolder).filter_by(path=path).first()
+    if not watch:
+        watch = WatchedFolder(
+            path=path,
+            status=status,
+        )
+        db.add(watch)
+        db.flush()
+        db.refresh(watch)
+    return watch
 
 
 def get_or_create_anime(db, name, group, season, output_path, tmdb_id, poster_path):

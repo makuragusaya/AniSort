@@ -44,7 +44,7 @@ def start_watcher(path, callback):
     for folder in path.iterdir():
         if folder.is_dir():
             print(f"[Watcher] Found existing folder: {folder}")
-            callback(folder, source="initial_scan")
+            callback(folder)
 
     observer.schedule(handler, str(path), recursive=True)
     observer_thread = threading.Thread(target=observer.start, daemon=True)
