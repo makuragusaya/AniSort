@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
-from ani_sort.db import init_db, SessionLocal, WatchedFolder
+from ani_sort.db import init_db, SessionLocal, get_or_create_watchfolder
 from ani_sort.web.routes import tasks, gallery
 from ani_sort.config_manager import load_config
 from ani_sort.watcher import start_watcher
@@ -13,11 +13,10 @@ app = FastAPI(title="AniSort WebUI", version="0.1")
 templates = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
 
 
-def on_new_folder(folder_path, source):
+def on_new_folder(folder_path):
     print(f"Add detected folder: {folder_path}")
     session = SessionLocal()
-    task = WatchedFolder(path=str(folder_path), status="detected")
-    session.add(task)
+    get_or_create_watchfolder(db=session, path=str(folder_path), status="detected")
     session.commit()
 
 
@@ -36,6 +35,6 @@ app.include_router(gallery.router)
 # app.include_router(config.router)
 
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+# @app.get("/")
+# def read_root():
+#     return {"Hello": "World"}

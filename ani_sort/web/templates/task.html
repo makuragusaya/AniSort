@@ -1,75 +1,160 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
     <title>AniSort Tasks</title>
     <style>
-        body { font-family: sans-serif; margin: 2rem; background: #f9f9f9; }
-        table { width: 100%; border-collapse: collapse; margin-top: 1rem; background: #fff; }
-        th, td { border: 1px solid #ccc; padding: 0.5rem 0.8rem; text-align: left; }
-        th { background: #eee; }
-        tr:nth-child(even) { background: #f5f5f5; }
-        h1 { margin-bottom: 0.5rem; }
-        form { margin-bottom: 1rem; }
-        input { padding: 0.4rem; margin-right: 0.5rem; }
-        button { padding: 0.4rem 1rem; cursor: pointer; }
-        .status-running { color: orange; font-weight: bold; }
-        .status-success { color: green; font-weight: bold; }
-        .status-failed { color: red; font-weight: bold; }
+      th {
+        background: #eee;
+      }
+      h1 {
+        margin-bottom: 0.5rem;
+      }
+      form {
+        margin-bottom: 1rem;
+      }
+      input {
+        padding: 0.4rem;
+        margin-right: 0.5rem;
+      }
+      button {
+        padding: 0.4rem 1rem;
+        cursor: pointer;
+      }
+      .status-running {
+        color: orange;
+        font-weight: bold;
+      }
+      .status-success {
+        color: green;
+        font-weight: bold;
+      }
+      .status-failed {
+        color: red;
+        font-weight: bold;
+      }
+
+      body {
+        font-family: system-ui, sans-serif;
+        margin: 2rem;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th,
+      td {
+        padding: 0.6rem;
+        border-bottom: 1px solid #ddd;
+      }
+      tr:hover {
+        background: #f8f8f8;
+      }
+      a {
+        text-decoration: none;
+        color: #0066cc;
+      }
+      button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
     </style>
-</head>
-<body>
+  </head>
+
+  <body>
     <h1>AniSort Tasks Lists</h1>
 
-    <!-- <form action="/tasks/run" method="post"> -->
-    <!--     <input type="text" name="input_path" placeholder="Input folder" required> -->
-    <!--     <input type="text" name="output_path" placeholder="Output folder (optional)"> -->
-    <!--     <button type="submit">Run Sort</button> -->
-    <!-- </form> -->
+    <hr />
 
-    <hr>
+    <h2>Pending Folders</h2>
 
-    {% for task in pending %}
-      <div class="task-card">
-        <h3>{{ task.path }}</h3>
-        <form action="/tasks/{{ task.id }}/run" method="post">
-          <button type="submit">Sort Now</button>
-        </form>
-      </div>
+    <form action="/tasks/run" method="post">
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Path</th>
+          <th>Start Time</th>
+          <th>Status</th>
+          <th>Task ID</th>
+          <th>Action</th>
+        </tr>
+
+        {% for t in pending %}
+        <tr>
+          <td><a href="/tasks/{{ t.task_id }}">{{ t.id }}</a></td>
+          <td>{{ t.path }}</td>
+          <td>{{ t.detected_at }}</td>
+          <td>{{ t.status }}</td>
+          <td>{{ t.task_id }}</td>
+          <td>
+            <button type="submit" name="folder_id" value="{{ t.id }}">
+              Sort Now
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </form>
+
+    <hr />
+    <h2>Runing Tasks</h2>
+    {% for task in running %}
+    <div class="task-card">
+      <h3>{{ task.input_path }}</h3>
+    </div>
     {% else %}
-      <p>No pending folders detected.</p>
+    <p>No running tasks detected.</p>
     {% endfor %}
 
-
+    <hr />
+    <h2>All Tasks</h2>
     <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Anime ID</th>
-                <th>Input Path</th>
-                <th>Output Path</th>
-                <th>Status</th>
-                <th>Start</th>
-                <th>End</th>
-                <th>Error</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for task in tasks %}
-            <tr>
-                <td>{{ task.id }}</td>
-                <td>{{ task.anime_id or '-' }}</td>
-                <td>{{ task.input_path }}</td>
-                <td>{{ task.output_path or '-' }}</td>
-                <td class="status-{{ task.status|lower }}">{{ task.status }}</td>
-                <td>{{ task.started_at.strftime('%Y-%m-%d %H:%M:%S') if task.started_at else '-' }}</td>
-                <td>{{ task.ended_at.strftime('%Y-%m-%d %H:%M:%S') if task.ended_at else '-' }}</td>
-                <td>{{ task.error_msg or '-' }}</td>
-            </tr>
-            {% else %}
-            <tr><td colspan="8" style="text-align:center; color:#888;">No tasks yet.</td></tr>
-            {% endfor %}
-        </tbody>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Anime ID</th>
+          <th>Input Path</th>
+          <th>Output Path</th>
+          <th>Status</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>Error</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for task in tasks %}
+        <tr>
+          <td>{{ task.id }}</td>
+          <td>{{ task.anime_id or '-' }}</td>
+          <td>{{ task.input_path }}</td>
+          <td>{{ task.output_path or '-' }}</td>
+          <td class="status-{{ task.status|lower }}">{{ task.status }}</td>
+          <td>
+            {{ task.started_at.strftime('%Y-%m-%d %H:%M:%S') if task.started_at
+            else '-' }}
+          </td>
+          <td>
+            {{ task.ended_at.strftime('%Y-%m-%d %H:%M:%S') if task.ended_at else
+            '-' }}
+          </td>
+          <td>{{ task.error_msg or '-' }}</td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="8" style="text-align: center; color: #888">
+            No tasks yet.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
     </table>
-</body>
+  </body>
 </html>

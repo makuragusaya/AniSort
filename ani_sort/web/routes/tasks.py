@@ -1,10 +1,10 @@
-from fastapi import APIRouter, Request, Form
+from fastapi import APIRouter, Request, Form, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from ani_sort.db import SessionLocal, Task, WatchedFolder
 from ani_sort.task import run_sort_task
 
-router = APIRouter(prefix="/tasks", tags=["Tasks"])
+router = APIRouter( tags=["Tasks"])
 templates = Jinja2Templates(directory="ani_sort/web/templates")
 
 
@@ -12,18 +12,29 @@ templates = Jinja2Templates(directory="ani_sort/web/templates")
 def list_tasks(request: Request):
     db = SessionLocal()
     tasks = db.query(Task).order_by(Task.id.desc()).all()
+    running_tasks = db.query(Task).filter(Task.status == "running").all()
     pending_tasks = (
         db.query(WatchedFolder).filter(WatchedFolder.status == "detected").all()
     )  # detected, processing, processed, removed
     return templates.TemplateResponse(
-        "task.html", {"request": request, "tasks": tasks, "pending": pending_tasks}
+        "task.html",
+        {
+            "request": request,
+            "tasks": tasks,
+            "pending": pending_tasks,
+            "running": running_tasks,
+        },
     )
 
 
 @router.post("/run")
-def run_sort(input_path: str = Form(...), output_path: str = Form(None)):
+def run_task_from_web(request: Request, folder_id: int = Form(...)):
+    db = SessionLocal()
+    folder = db.query(WatchedFolder).filter_by(id=folder_id).first()
+    if not folder:
+        raise HTTPException(status_code=404, detail="Folder not found")
+
     run_sort_task(
-        input_path=input_path,
-        output_dir=output_path if output_path else None,
+        input_path=folder.path,
     )
-    return RedirectResponse(url="/tasks", status_code=303)
+    return RedirectResponse("/", status_code=303)
