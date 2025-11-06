@@ -31,7 +31,7 @@
 
     {% for task in pending %}
       <div class="task-card">
-        <h3>{{ task.input_path }}</h3>
+        <h3>{{ task.path }}</h3>
         <form action="/tasks/{{ task.id }}/run" method="post">
           <button type="submit">Sort Now</button>
         </form>

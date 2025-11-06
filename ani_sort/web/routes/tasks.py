@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request, Form
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
-from ani_sort.db import SessionLocal, Task
+from ani_sort.db import SessionLocal, Task, WatchedFolder
 from ani_sort.task import run_sort_task
 
 router = APIRouter(prefix="/tasks", tags=["Tasks"])
@@ -12,7 +12,9 @@ templates = Jinja2Templates(directory="ani_sort/web/templates")
 def list_tasks(request: Request):
     db = SessionLocal()
     tasks = db.query(Task).order_by(Task.id.desc()).all()
-    pending_tasks = db.query(Task).filter(Task.status == "pending").all()
+    pending_tasks = (
+        db.query(WatchedFolder).filter(WatchedFolder.status == "detected").all()
+    )  # detected, processing, processed, removed
     return templates.TemplateResponse(
         "task.html", {"request": request, "tasks": tasks, "pending": pending_tasks}
     )

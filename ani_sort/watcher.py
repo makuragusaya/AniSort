@@ -49,7 +49,7 @@ def start_watcher(path, callback):
     observer.schedule(handler, str(path), recursive=True)
     observer_thread = threading.Thread(target=observer.start, daemon=True)
     observer_thread.start()
-    print(f"[Watcher] Monitoring folder: {path}")
+    print(f"[Watcher] Start Monitoring folder: {path}")
 
     return observer
 

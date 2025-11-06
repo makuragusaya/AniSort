@@ -14,7 +14,7 @@ templates = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
 
 
 def on_new_folder(folder_path, source):
-    print(f"Detected new folder: {folder_path}")
+    print(f"Add detected folder: {folder_path}")
     session = SessionLocal()
     task = WatchedFolder(path=str(folder_path), status="detected")
     session.add(task)
