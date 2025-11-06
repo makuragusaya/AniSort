@@ -1,6 +1,6 @@
 import os
 from ani_sort.utils import sanitize_filename, get_all_files
-from ani_sort.metadata import extract_groups, get_ani_info
+from ani_sort.metadata import extract_groups, get_ani_info, get_season_poster
 from ani_sort.subset import subset_ass_fonts
 from pathlib import Path
 from typing import Union
@@ -46,6 +46,10 @@ class AniSort(object):
         )
         self.extra_info: dict = extract_groups(self.path.stem)
         self.group_name: str = self.extra_info["group"]
+        self.tmdb_id = self.ani_info["tmdb_id"]
+        self.poster_path: str = get_season_poster(
+            self.tmdb_id, self.season, self.config, self.logger
+        )
 
         if parent_dir is None or str(parent_dir).strip() == "":
             parent_dir = Path(self.config.general.default_output)

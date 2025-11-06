@@ -27,7 +27,8 @@ def get_ani_info(name: str, config=None, logger=None) -> dict:
     name: 番剧文件名
     """
     query: str = (
-        logger.info("调用 AI - 1") or call_ai(config.ai.api, f"{name}\n\n{config.ai.prompt1}")
+        logger.info("调用 AI - 1")
+        or call_ai(config.ai.api, f"{name}\n\n{config.ai.prompt1}")
         if config.ai.call
         else (
             match := re.match(
@@ -86,4 +87,27 @@ def get_ani_info(name: str, config=None, logger=None) -> dict:
         "name": info["name"],
         "date": info["first_air_date"].split("-")[0] or "年份未知",
         "season": season,
+        "tmdb_id": info["id"],
+        "original_name": info["original_name"],
+        "poster_path": info["poster_path"],
+        "backdrop_path": info["backdrop_path"],
     }
+
+
+def get_season_poster(series_id, season, config=None, logger=None):
+    url = f"https://api.themoviedb.org/3/tv/{series_id}/season/{season}/images"
+
+    res = logger.info("调用 TMDB") or call_tmdb(
+        config.tmdb.api,
+        url=url,
+        params={},
+        proxies=config.general.proxies,
+        logger=logger,
+    )
+
+    data = res.json()
+    poster_path = None
+    if data.get("posters"):
+        poster_path = data["posters"][0]["file_path"]
+
+    return poster_path

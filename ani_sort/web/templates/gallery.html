@@ -2,6 +2,7 @@
 <div class="gallery">
   {% for anime in animes %}
     <div class="anime-card">
+      <img src="https://image.tmdb.org/t/p/w500{{ anime.poster_path }}" alt="{{ anime.name }}">
       <h3>{{ anime.name }}</h3>
       <p><b>Group:</b> {{ anime.group_name or 'Unknown' }}</p>
       <p><b>Season:</b> {{ anime.season }}</p>

@@ -34,6 +34,8 @@ def run_sort_task(input_path, output_dir=None, dryrun=False, verbose=False, move
             sorter.group_name,
             sorter.season,
             sorter.parent_dir,
+            sorter.tmdb_id,
+            sorter.poster_path,
         )
 
         if task.success:

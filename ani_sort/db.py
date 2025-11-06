@@ -30,6 +30,8 @@ class Anime(Base):
     name = Column(String, nullable=False)
     season = Column(Integer, default=1)
     season_desc = Column(String)
+    tmdb_id = Column(Integer)
+    poster_path = Column(String, nullable=True)
     group_name = Column(String)
     output_path = Column(String)
     added_at = Column(DateTime, default=datetime.now)
@@ -54,7 +56,7 @@ class Task(Base):
     anime = relationship("Anime", back_populates="tasks")
 
 
-def get_or_create_anime(db, name, group, season, output_path):
+def get_or_create_anime(db, name, group, season, output_path, tmdb_id, poster_path):
     anime = (
         db.query(Anime).filter_by(name=name, group_name=group, season=season).first()
     )
@@ -64,6 +66,8 @@ def get_or_create_anime(db, name, group, season, output_path):
             season=season,
             group_name=group,
             output_path=output_path,
+            tmdb_id=tmdb_id,
+            poster_path=poster_path,
         )
         db.add(anime)
         db.flush()  # 获取 anime.id
