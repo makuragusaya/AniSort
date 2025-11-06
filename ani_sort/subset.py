@@ -66,7 +66,9 @@ def subset_ass_fonts(target_dir: str | Path, logger: logging.Logger | None = Non
 
         # Step 1: 抽取字体
         logger.info(f"1. 抽取并子集化字体到 {subset_dir}")
-        if not run_cmd(["assfonts", "-o", str(subset_dir), "-s", "-i", str(ass_file)], logger):
+        if not run_cmd(
+            ["assfonts", "-o", str(subset_dir), "-s", "-i", str(ass_file)], logger
+        ):
             logger.warning(f"跳过该文件，因字体子集化失败: {ass_file}")
             shutil.rmtree(subset_dir, ignore_errors=True)
             continue
@@ -79,7 +81,9 @@ def subset_ass_fonts(target_dir: str | Path, logger: logging.Logger | None = Non
 
         # Step 3: 嵌入子集字体
         logger.info("3. 将子集化字体嵌入到 ASS 文件中...")
-        if not run_cmd(["assfonts", "-f", str(subset_dir), "-i", str(ass_file)], logger):
+        if not run_cmd(
+            ["assfonts", "-f", str(subset_dir), "-i", str(ass_file)], logger
+        ):
             logger.warning(f"跳过该文件，因嵌入阶段失败: {ass_file}")
             shutil.rmtree(subset_dir, ignore_errors=True)
             continue

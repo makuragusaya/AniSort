@@ -5,9 +5,40 @@ from ani_sort.config_manager import load_config
 from ani_sort.db import SessionLocal, Task, get_or_create_anime
 
 
-def run_sort_task(input_path, output_dir=None, dryrun=False, verbose=False, move=False):
-    logger = setup_logger(verbose)
+def run_sort_task(
+    input_path,
+    output_dir=None,
+    *,
+    dryrun: bool | None = None,
+    verbose: bool | None = None,
+    move: bool | None = None,
+    subset: bool | None = None,
+    is_cli: bool = False,
+):
+
     config = load_config()
+    effective_dryrun = dryrun if is_cli and dryrun is not None else False
+    effective_move = (
+        move
+        if is_cli and move is not None
+        else config.features.get("move_original", False)
+    )
+    effective_subset = (
+        subset
+        if is_cli and subset is not None
+        else config.features.get("subset_ass", False)
+    )
+    effective_verbose = (
+        subset
+        if is_cli and subset is not None
+        else config.features.get("verbose", False)
+    )
+
+    logger = setup_logger(effective_verbose)
+
+    logger.info(
+        f"Running task with options: dryrun={effective_dryrun}, move={effective_move}, subset={effective_subset}"
+    )
 
     session = SessionLocal()
 
@@ -19,7 +50,7 @@ def run_sort_task(input_path, output_dir=None, dryrun=False, verbose=False, move
 
     try:
         sorter = AniSort(input_path, output_dir, config, logger)
-        sorter.process(dryrun=dryrun)
+        sorter.process(dryrun=effective_dryrun)
         task.status = "success"
         task.success = True
     except Exception as e:
@@ -30,6 +61,7 @@ def run_sort_task(input_path, output_dir=None, dryrun=False, verbose=False, move
         session.merge(task)
     finally:
         task.ended_at = datetime.now()
+        task.output_path = sorter.parent_dir
         anime = get_or_create_anime(
             session,
             sorter.ani_name,
@@ -63,12 +95,12 @@ def run_sort_task(input_path, output_dir=None, dryrun=False, verbose=False, move
             session.rollback()
 
     # MoveOriginal
-    if move and config.features.get("move_original", False):
-        sorter.move_original_folder(dryrun=dryrun)
+    if effective_move:
+        sorter.move_original_folder(dryrun=effective_dryrun)
 
     # Subset
-    if config.features.get("subset_ass", False):
-        sorter.subset_ass(dryrun=dryrun)
+    if effective_subset:
+        sorter.subset_ass(dryrun=effective_dryrun)
 
     return {
         "input": str(sorter.path),

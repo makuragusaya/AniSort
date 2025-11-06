@@ -23,7 +23,12 @@ def main():
 
     # TaskRunner
     status = run_sort_task(
-        args.input, args.output, args.dryrun, args.verbose, args.move
+        input_path=args.input,
+        output_dir=args.output,
+        dryrun=args.dryrun,
+        verbose=args.verbose,
+        move=args.move,
+        is_cli=True,
     )["status"]
     print(f"Run sort task: {status}")
 
