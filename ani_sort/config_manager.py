@@ -29,9 +29,9 @@ class GeneralConfig(BaseModel):
 
 class AppConfig(BaseModel):
     general: GeneralConfig
+    features: dict
     tmdb: TMDBConfig
     ai: AIConfig
-    features: dict
     ignore_exts: list
     patterns: list[dict]
 
