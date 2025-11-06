@@ -58,11 +58,9 @@ def run_sort_task(
         sorter = AniSort(input_path, output_dir, config, logger)
         sorter.process(dryrun=effective_dryrun)
         task.status = "success"
-        task.success = True
     except Exception as e:
         session.rollback
         task.status = "failed"
-        task.success = False
         task.error_msg = str(e)
         session.merge(task)
     finally:
@@ -73,12 +71,13 @@ def run_sort_task(
             sorter.ani_name,
             sorter.group_name,
             sorter.season,
+            sorter.path,
             sorter.parent_dir,
             sorter.tmdb_id,
             sorter.poster_path,
         )
 
-        if task.success:
+        if task.status == "success":
             anime.status = "done"
             anime.last_updated = datetime.now()
             if watched:

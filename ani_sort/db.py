@@ -33,7 +33,8 @@ class Anime(Base):
     tmdb_id = Column(Integer)
     poster_path = Column(String, nullable=True)
     group_name = Column(String)
-    output_path = Column(String)
+    orig_path = Column(String)
+    prod_path = Column(String)
     added_at = Column(DateTime, default=datetime.now)
     last_updated = Column(DateTime)
     status = Column(String, default="pending")  # done, failed, skipped
@@ -47,9 +48,10 @@ class Task(Base):
     anime_id = Column(Integer, ForeignKey("anime.id"))
     input_path = Column(String)
     output_path = Column(String)
+    orig_path = Column(String)
     started_at = Column(DateTime, default=datetime.now)
     ended_at = Column(DateTime)
-    success = Column(Boolean, default=False)
+
     status = Column(String)
     error_msg = Column(String)
 
@@ -80,7 +82,9 @@ def get_or_create_watchfolder(db, path, status):
     return watch
 
 
-def get_or_create_anime(db, name, group, season, output_path, tmdb_id, poster_path):
+def get_or_create_anime(
+    db, name, group, season, input_path, output_path, tmdb_id, poster_path
+):
     anime = (
         db.query(Anime).filter_by(name=name, group_name=group, season=season).first()
     )
@@ -89,7 +93,8 @@ def get_or_create_anime(db, name, group, season, output_path, tmdb_id, poster_pa
             name=name,
             season=season,
             group_name=group,
-            output_path=output_path,
+            orig_path=input_path,
+            prod_path=output_path,
             tmdb_id=tmdb_id,
             poster_path=poster_path,
         )
