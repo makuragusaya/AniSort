@@ -1,18 +1,19 @@
+from datetime import datetime
 from ani_sort.core import AniSort
 from ani_sort.logging import setup_logger
 from ani_sort.config_manager import load_config
-from ani_sort.db import SessionLocal, Anime, Task
+from ani_sort.db import SessionLocal, Task, get_or_create_anime
 
 
-def run_sort_task(
-    input_path, output_dir=None, dryrun=False, verbose=False, move=False
-):
+def run_sort_task(input_path, output_dir=None, dryrun=False, verbose=False, move=False):
     logger = setup_logger(verbose)
     config = load_config()
 
     session = SessionLocal()
 
-    task = Task(input_path=str(input_path), status="running")
+    task = Task(
+        input_path=str(input_path), output_path=str(output_dir), status="running"
+    )
     session.add(task)
     session.commit()
 
@@ -23,16 +24,26 @@ def run_sort_task(
         task.success = True
     except Exception as e:
         task.status = "failed"
+        task.success = False
         task.error_msg = str(e)
     finally:
-        anime = Anime(
-            name=sorter.ani_name,
-            group_name=sorter.group_name,
-            season=sorter.season,
-            output_path=str(sorter.parent_dir),
+        task.ended_at = datetime.now()
+        anime = get_or_create_anime(
+            session,
+            sorter.ani_name,
+            sorter.group_name,
+            sorter.season,
+            sorter.parent_dir,
         )
-        session.add(anime)
-        session.flush()  # 获取 anime.id
+
+        if task.success:
+            anime.status = "done"
+            anime.last_updated = datetime.now()
+        elif anime.status == "done":
+            anime.status = "update failed"
+        else:
+            anime.status = "failed"
+
         task.anime_id = anime.id
         session.commit()
 

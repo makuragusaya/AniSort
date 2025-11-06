@@ -8,6 +8,7 @@ from sqlalchemy import (
     DateTime,
     Boolean,
     ForeignKey,
+    UniqueConstraint,
 )
 from sqlalchemy.orm import declarative_base, sessionmaker, relationship
 from datetime import datetime
@@ -22,13 +23,18 @@ SessionLocal = sessionmaker(bind=engine)
 
 class Anime(Base):
     __tablename__ = "anime"
+    __table_args__ = (
+        UniqueConstraint("name", "group_name", "season", name="uq_anime_unique"),
+    )
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
-    group_name = Column(String)
     season = Column(Integer, default=1)
+    season_desc = Column(String)
+    group_name = Column(String)
     output_path = Column(String)
     added_at = Column(DateTime, default=datetime.now)
-    status = Column(String, default="done")  # done, failed, skipped
+    last_updated = Column(DateTime)
+    status = Column(String, default="pending")  # done, failed, skipped
 
     tasks = relationship("Task", back_populates="anime")
 
@@ -38,13 +44,31 @@ class Task(Base):
     id = Column(Integer, primary_key=True)
     anime_id = Column(Integer, ForeignKey("anime.id"))
     input_path = Column(String)
+    output_path = Column(String)
     started_at = Column(DateTime, default=datetime.now)
     ended_at = Column(DateTime)
     success = Column(Boolean, default=False)
-    log_path = Column(String)
     status = Column(String)
+    error_msg = Column(String)
 
     anime = relationship("Anime", back_populates="tasks")
+
+
+def get_or_create_anime(db, name, group, season, output_path):
+    anime = (
+        db.query(Anime).filter_by(name=name, group_name=group, season=season).first()
+    )
+    if not anime:
+        anime = Anime(
+            name=name,
+            season=season,
+            group_name=group,
+            output_path=output_path,
+        )
+        db.add(anime)
+        db.flush()  # 获取 anime.id
+        db.refresh(anime)
+    return anime
 
 
 def init_db():
