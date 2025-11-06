@@ -1,5 +1,6 @@
 import argparse
 from ani_sort.task import run_sort_task
+from ani_sort.db import SessionLocal, Anime, Task, init_db
 
 
 def main():
@@ -17,6 +18,10 @@ def main():
     )
     args = parser.parse_args()
 
+    # database
+    init_db()
+
+    # TaskRunner
     status = run_sort_task(
         args.input, args.output, args.dryrun, args.verbose, args.move
     )["status"]
