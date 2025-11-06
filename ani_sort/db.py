@@ -56,6 +56,15 @@ class Task(Base):
     anime = relationship("Anime", back_populates="tasks")
 
 
+class WatchedFolder(Base):
+    __tablename__ = "watch_folders"
+    id = Column(Integer, primary_key=True, index=True)
+    path = Column(String, unique=True)
+    detected_at = Column(DateTime, default=datetime.now)
+    task_id = Column(Integer, ForeignKey("tasks.id"), nullable=True)
+    status = Column(String, default="detected")  # detected, processing, processed, removed
+
+
 def get_or_create_anime(db, name, group, season, output_path, tmdb_id, poster_path):
     anime = (
         db.query(Anime).filter_by(name=name, group_name=group, season=season).first()

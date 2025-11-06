@@ -25,6 +25,7 @@ class GeneralConfig(BaseModel):
     default_output: str
     proxies: dict
     original_archive_dir: str
+    watch_folder: str
 
 
 class AppConfig(BaseModel):

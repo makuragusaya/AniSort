@@ -6,12 +6,14 @@ general:
   default_output: "../testspace/default/"
   proxies: {}
   original_archive_dir: "../testspace/orig"
-  monitor_dir: "../testspace/input"
+  watch_folder: "../testspace/input"
 
 features:
   move_original: true
   subset_ass: true
   auto_sort: false
+  verbose: true
+  dryrun: false
 
 tmdb:
   api: "!env TMDB_API_KEY"
