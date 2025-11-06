@@ -6,8 +6,8 @@
 - [x] ignore Unknown Files 
 - [x] log system
 - [x] Subtitle subset
+- [x] Database
 - [ ] Web API
-- [ ] Database
 - [ ] Switch Jellyfin/Plex
 
 ---

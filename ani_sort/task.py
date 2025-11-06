@@ -23,9 +23,11 @@ def run_sort_task(input_path, output_dir=None, dryrun=False, verbose=False, move
         task.status = "success"
         task.success = True
     except Exception as e:
+        session.rollback
         task.status = "failed"
         task.success = False
         task.error_msg = str(e)
+        session.merge(task)
     finally:
         task.ended_at = datetime.now()
         anime = get_or_create_anime(
@@ -47,7 +49,18 @@ def run_sort_task(input_path, output_dir=None, dryrun=False, verbose=False, move
             anime.status = "failed"
 
         task.anime_id = anime.id
-        session.commit()
+
+        if session.is_active:
+            logger.info("Session is active, committing changes")
+        else:
+            logger.warning("Session inactive, performing rollback before commit")
+            session.rollback()
+
+        try:
+            session.commit()
+        except Exception as e:
+            logger.error(f"Commit failed: {e}")
+            session.rollback()
 
     # MoveOriginal
     if move and config.features.get("move_original", False):
