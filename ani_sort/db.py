@@ -42,6 +42,7 @@ class Task(Base):
     ended_at = Column(DateTime)
     success = Column(Boolean, default=False)
     log_path = Column(String)
+    status = Column(String)
 
     anime = relationship("Anime", back_populates="tasks")
 

@@ -2,7 +2,6 @@ import os
 from ani_sort.utils import sanitize_filename, get_all_files
 from ani_sort.metadata import extract_groups, get_ani_info
 from ani_sort.subset import subset_ass_fonts
-from ani_sort.db import SessionLocal, Anime, Task, init_db
 from pathlib import Path
 from typing import Union
 import re
@@ -277,12 +276,3 @@ class AniSort(object):
         self.logger.info(f"[TASK {self.task_id}] Finished in {duration:.2f}s")
 
         self._write_task_log(status="success", duration=duration)
-
-        session = SessionLocal()
-
-        anime = Anime(name=self.ani_name, group_name=self.group_name, season=self.season)
-        task = Task(input_path=self.path, success=True)
-        anime.tasks.append(task)
-
-        session.add(anime)
-        session.commit()
