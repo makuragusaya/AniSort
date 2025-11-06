@@ -1,0 +1,13 @@
+<h2>Anime Gallery</h2>
+<div class="gallery">
+  {% for anime in animes %}
+    <div class="anime-card">
+      <h3>{{ anime.name }}</h3>
+      <p><b>Group:</b> {{ anime.group_name or 'Unknown' }}</p>
+      <p><b>Season:</b> {{ anime.season }}</p>
+      <p><b>Status:</b> {{ anime.status or 'N/A' }}</p>
+    </div>
+  {% else %}
+    <p>No anime records found.</p>
+  {% endfor %}
+</div>

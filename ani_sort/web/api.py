@@ -4,7 +4,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
 from ani_sort.db import init_db
-from ani_sort.web.routes import tasks, works, config
+from ani_sort.web.routes import tasks, works, config, gallery
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 TASKS_FILE = BASE_DIR / "tasks" / "history.json"
@@ -20,6 +20,7 @@ def startup_event():
 
 
 app.include_router(tasks.router)
+app.include_router(gallery.router)
 # app.include_router(works.router)
 # app.include_router(config.router)
 
