@@ -3,8 +3,8 @@ general:
   comparison_table: true
   ignore_file: true
   chinese_traditional: true
-  default_output: "../testspace/default/"
   proxies: {}
+  default_output: "../testspace/default/"
   original_archive_dir: "../testspace/orig"
   watch_folder: "../testspace/input"
 
