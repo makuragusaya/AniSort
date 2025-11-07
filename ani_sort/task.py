@@ -58,14 +58,8 @@ def run_sort_task(
         sorter = AniSort(input_path, output_dir, config, logger)
         sorter.process(dryrun=effective_dryrun)
         task.status = "success"
-    except Exception as e:
-        session.rollback
-        task.status = "failed"
-        task.error_msg = str(e)
-        session.merge(task)
-    finally:
-        task.ended_at = datetime.now()
         task.output_path = sorter.parent_dir
+        task.ended_at = datetime.now()
         anime = get_or_create_anime(
             session,
             sorter.ani_name,
@@ -76,19 +70,19 @@ def run_sort_task(
             sorter.tmdb_id,
             sorter.poster_path,
         )
-
-        if task.status == "success":
-            anime.status = "done"
-            anime.last_updated = datetime.now()
-            if watched:
-                watched.status = "processed"
-        elif anime.status == "done":
-            anime.status = "update failed"
-        else:
-            anime.status = "failed"
-
+        anime.status = "done"
+        anime.last_updated = datetime.now()
         task.anime_id = anime.id
-
+        if watched:
+            watched.status = "processed"
+    except Exception as e:
+        session.rollback()
+        task.status = "failed"
+        task.error_msg = str(e)
+        logger.error(f"Task failed during execution: {str(e)}")
+        session.merge(task)
+        raise
+    finally:
         if session.is_active:
             logger.info("Session is active, committing changes")
         else:
