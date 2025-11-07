@@ -1,15 +1,83 @@
+## AniSort (Enhanced Edition)
 
-## TODO list
+A modernized, modular anime library organizer.
+Automatically renames, restructures, and catalogs Blu-ray rips following Jellyfin/Plex conventions, with database integration and Web UI.
 
-- [x] Hard link
-- [x] New config
-- [x] ignore Unknown Files 
-- [x] log system
-- [x] Subtitle subset
-- [x] Database
-- [ ] Recursion handle
-- [ ] Web API
-- [ ] Switch Jellyfin/Plex
+> Forked and extended from [bysansheng/AniSort](https://github.com/bysansheng/AniSort),
+> with organization logic inspired by [mikusa 的媒体库管理方案](https://www.himiku.com/archives/how-i-organize-my-animation-library.html)
+
+This project began as a fork of the original **AniSort** by @bysansheng, but has since been heavily refactored and expanded.  
+While the core matching logic and naming patterns are inherited, the architecture, configuration system, and automation pipeline have been completely rewritten.
+
+## Why this project 
+
+The goal is to make the anime library organization fully automated and easier controllable. 
+From folder monitoring to renaming, hardlinking, subtitle subsetting, and metadata integration.
+So that your NAS or Jellyfin server always stays perfectly structured with minimal manual work.
+
+## Improvements
+
+- Database Integration
+- Web UI 
+- **New config system** with `.env` + yaml + Pydantic validation
+- Introduce Hard link instead of move
+- Logging system
+- Subtitle Subset Integration
+- Automatic Folder Watching
+
+## Improvements & Roadmap
+
+### Completed
+- [x] Fully restructured architecture
+- [x] New config system (.env + YAML + Pydantic)
+- [x] Database integration (SQLite + SQLAlchemy)
+- [x] Integrated logging system
+- [x] Hard link support
+- [x] Subtitle subset integration
+- [x] Automatic folder watching
+- [x] WebUI for task management and monitored folders
+
+### Todo
+- [ ] Improve WebUI design and layout
+  - [ ] Refine dashboard design (task table, gallery view)
+  - [ ] Improve form interactions and error messages
+  - [ ] Add responsive layout for mobile and tablet
+  - [ ] Add theme / color customization
+- [ ] Recursive handling for nested folders  
+- [ ] Jellyfin / Plex integration toggle  
+- [ ] RESTful API for external tools
+
+
+## Usage
+
+```shell
+# CLI mode (one-time execution)
+python main.py [options] <input_folder> [output_folder]
+
+# Options
+  -h, --help        Show help message and exit
+  --dryrun          Perform a trial run without making changes
+  --verbose         Enable detailed logging output
+  --move            Move original folder to archive after sorting
+
+# Web mode (service)
+uvicorn ani_sort.web.api:app --reload --port 8000
+```
+
+## Configuration
+```
+# .env
+TMDB_API_KEY=your_api_key
+AI_API_KEY=optional_ai_key
+```
+
+```yaml
+# config/settings.yaml
+general:
+  default_output: "./sorted"
+  original_archive_dir: "./orig_archive"
+  ...
+```
 
 
 ---
@@ -21,14 +89,10 @@
 
 整理逻辑参考 [mikusa的媒体库管理方案](https://www.himiku.com/archives/how-i-organize-my-animation-library.html)
 
-## 使用方式
-
 
 ## 整理流程
 
 首先通过 **TMDB API** 与 **原文件夹的名称** 获取番剧信息
-
-Ps：可在文件夹后面添加 `下划线+S+数字` 来指明 Season，例如 `[xxx] 赛马娘_S2 [1080p]`，也可接入 AI 进行自动解析
 
 再根据元数据对可识别的文件进行格式化重命名
 
@@ -85,39 +149,3 @@ title (2018)/
 └── Comparison_Table.txt
 ```
 
-## 配置项
-
-可在 **config.py** 中进行配置的修改
-
-```python
-# 请前往 TMDB 注册 api_key (32位的那个)
-# https://www.themoviedb.org/settings/api
-TMDB_API_KEY: str = "your_api_key_here"
-
-# 是否手动选择 TMDB 的搜索结果
-TMDB_SELECTED: bool = False
-
-# 是否调用 AI 进行番剧信息解析
-CALL_AI: bool = False
-
-# 请前往 DeepSeek 注册 api_key（仅在 CALL_AI 的值为 True 时需要）
-# https://platform.deepseek.com/api_keys
-AI_API_KEY:: str = "your_api_key_here"
-
-# 是否生成对照表
-GENERATE_COMPARISON_TABLE: bool = True
-
-# 是否生成 .ignore 文件
-GENERATE_IGNORE_FILE: bool = False
-
-# 分类规则（可自行编写和添加）
-PATTERN = [
-    {
-        "type": "IV",
-        "regex": r"(?i)(IV|Interview)[ _-]?(\d*(?:v\d+))",
-        "normalize": "Interviews/{ani_name} - IV{match2}",
-        "priority": 4
-    },
-    ...
-]
-```
