@@ -38,6 +38,7 @@ So that your NAS or Jellyfin server always stays perfectly structured with minim
 - [x] WebUI for task management and monitored folders
 
 ### Todo
+- [ ] OVA support
 - [ ] Improve WebUI design and layout
   - [ ] Refine dashboard design (task table, gallery view)
   - [ ] Improve form interactions and error messages

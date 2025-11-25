@@ -47,9 +47,12 @@ class AniSort(object):
         self.extra_info: dict = extract_groups(self.path.stem)
         self.group_name: str = self.extra_info["group"]
         self.tmdb_id = self.ani_info["tmdb_id"]
-        self.poster_path: str = get_season_poster(
-            self.tmdb_id, self.season, self.config, self.logger
-        )
+        self.media_type = self.ani_info["media_type"]
+        self.poster_path = self.ani_info["poster_path"]
+        if self.media_type == "tv":
+            self.season_poster_path: str = get_season_poster(
+                self.tmdb_id, self.season, self.config, self.logger
+            )
 
         if parent_dir is None or str(parent_dir).strip() == "":
             parent_dir = Path(self.config.general.default_output)

@@ -39,7 +39,8 @@ def get_ani_info(name: str, config=None, logger=None) -> dict:
     )
     res = logger.info("调用 TMDB") or call_tmdb(
         config.tmdb.api,
-        url="https://api.themoviedb.org/3/search/tv",
+        # url="https://api.themoviedb.org/3/search/tv",
+        url="https://api.themoviedb.org/3/search/multi",
         params={"query": query},
         proxies=config.general.proxies,
         logger=logger,
@@ -84,13 +85,15 @@ def get_ani_info(name: str, config=None, logger=None) -> dict:
         season: int = int(match[2]) if match[2] else 1
 
     return {
-        "name": info["name"],
-        "date": info["first_air_date"].split("-")[0] or "年份未知",
+        "name": info.get("name") or info.get("title"),
+        # "date": info["first_air_date"].split("-")[0] or "年份未知",
+        "date": (info.get("first_air_date") or info.get("release_date") or "年份未知").split("-")[0],
         "season": season,
         "tmdb_id": info["id"],
-        "original_name": info["original_name"],
+        "original_name": info.get("original_name") or info.get("original_title"),
         "poster_path": info["poster_path"],
         "backdrop_path": info["backdrop_path"],
+        "media_type": info.get("media_type"),
     }
 
 
