@@ -93,8 +93,8 @@ def get_or_create_anime(
             name=name,
             season=season,
             group_name=group,
-            orig_path=input_path,
-            prod_path=output_path,
+            orig_path=str(input_path),
+            prod_path=str(output_path),
             tmdb_id=tmdb_id,
             poster_path=poster_path,
         )
